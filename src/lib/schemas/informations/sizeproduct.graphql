@@ -1,0 +1,34 @@
+# types
+type Size {
+    sizeId: ID!
+    sizeName: String!
+    sizeState: Int
+    cDatCre: DateTime
+    cDatMod: DateTime
+}
+
+# Inputs    
+input ISize {
+    sizeId: ID
+    sizeName: String
+    sizeState: Int
+}
+input ISizeEdit {
+    sizeId: ID
+    sizeName: String
+    sizeState: Int
+}
+
+# Queries
+type Query {
+    "Consulta todas las talla"
+    getSizes: [Size]
+}
+
+# Mutations
+type Mutation {
+    "Registra una talla"
+    create(input: ISizeEdit): Size
+    "Edita una talla"
+    editSize(input: ISizeEdit!): Size
+}

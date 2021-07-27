@@ -8,6 +8,7 @@ const DepartmentsModel = require('../information/DepartmentsModel')
 const CountriesModel = require('../information/CountriesModel')
 const colorModel = require('./color')
 const trademarkModel = require('./trademark')
+const SizeModel = require('../information/size')
 
 // sequelize.sync()
 
@@ -109,11 +110,28 @@ const ProductsModel = sequelize.define('products', {
     ProDelivery: {
         type: Sequelize.INTEGER
     },
+    // Entrega
+    ProVoltaje: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
     // CAMBIO DE ESTADO PARA BORRAR EL PRODUCTO
     ProState: {
         type: Sequelize.TINYINT,
         allowNull: false,
         defaultValue: 1
+    },
+    // talla del producto
+    sizeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+            model: SizeModel,
+            key: 'sizeId'
+        },
+        get (x) { return this.getDataValue(x) ? enCode(this.getDataValue(x)) : null }
     },
     // Marca comercial de producto
     tId: {

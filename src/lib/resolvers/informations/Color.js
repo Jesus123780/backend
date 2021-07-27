@@ -27,12 +27,12 @@ const colorQueries = {
     }
 }
 // Mutation
+// Mutations
 const colorMutation = {
     createColor: async (_root, { input }) => {
-        console.log(input)
         try {
-            const data = await colorModel.create({ ...input })
-            return data
+            const res = await colorModel.create({ ...input })
+            return res
         } catch (e) {
             throw new ApolloError('No ha sido posible procesar su solicitud.', 500, e)
         }

@@ -1,9 +1,9 @@
 'use strict'
 
-const { ApolloError } = require("apollo-server")
-const { Op } = require("sequelize")
-const CitiesModel = require("../../../models/information/CitiesModel")
-const { getAttributes, deCode } = require("../../../utils")
+const { ApolloError } = require('apollo-server')
+const { Op } = require('sequelize')
+const CitiesModel = require('../../../models/information/CitiesModel')
+const { getAttributes, deCode } = require('../../../utils')
 
 // Queries
 const citiesQueries = {
@@ -17,7 +17,6 @@ const citiesQueries = {
         }
     }
 }
-
 
 module.exports = {
     citiesQueries

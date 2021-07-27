@@ -9,7 +9,6 @@ type TypeIdentity {
 
 # Inputs    
 input ITypeIdentity {
-    tiId: ID #Solo para actualizar
     tiName: String
     tiState: Int
 }

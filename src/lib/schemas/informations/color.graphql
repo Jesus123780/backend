@@ -9,16 +9,16 @@ type Color {
 
 # Inputs    
 input IColor {
-    colorId: ID!
-    colorName: String!
+    colorId: ID
+    colorName: String
     colorState: Int
     colorDatCre: DateTime
     colorDatMod: DateTime
 }
 
 input IColorEdit {
-    colorId: ID!
-    colorName: String!
+    colorId: ID
+    colorName: String
     colorState: Int
     colorDatCre: DateTime
     colorDatMod: DateTime

@@ -21,6 +21,7 @@ const { generalDocumentsMutation } = require('./generalDocuments')
 const { registerUserMutation, loginMutation, updateAvatar, UpdateInfo } = require('./userLogin')
 const { typeIdentitiesMutation } = require('./informations/TypeIdentities')
 const { colorMutation } = require('./informations/Color')
+const { sizeMutation } = require('./informations/Size')
 
 module.exports = {
     ...areasMutations,
@@ -49,4 +50,5 @@ module.exports = {
     ...UpdateInfo,
     ...typeIdentitiesMutation,
     ...colorMutation,
+    ...sizeMutation,
 }
