@@ -1,0 +1,39 @@
+# types
+type Department {
+    dId: ID!
+    cId: ID!
+    dName: String!
+    dState: Int
+    dDatCre: DateTime
+    dDatMod: DateTime
+}
+
+# Inputs    
+input IDepartment {
+    dId: ID #Solo para actualizar
+    cId: ID!
+    dName: String!
+    dState: Int
+}
+
+input IEditDepartments {
+    dId: ID #Solo para actualizar
+    cId: ID!
+    dName: String!
+    dState: Int
+}
+
+# Queries
+type Query {
+    "Consulta todos departamentos de un país"
+    departments(cId: ID!): [Department]
+    "Consulta todos departamentos de un país"
+    department: [Department]
+}
+
+# Mutations
+type Mutation {
+    "Registra un cliente"
+    createDepartments(input: IDepartment): Department
+    editDepartments(input: IEditDepartments!): Department
+}

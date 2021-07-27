@@ -1,0 +1,35 @@
+# Types
+type GeneralFolderParent {
+    gfpId: ID!
+    gfId: ID!
+    parentId: ID!
+    gfpLevel: Int!
+    gfpState: Int
+    gfpDatCre: DateTime
+    gfpDatMod: DateTime
+    folder: GeneralFolders
+}
+
+# Queries
+type Query {
+    "Obtiene todas las carpetas con sus parientes"
+    generalFolderParents(id: ID!): [GeneralFolderParent]
+}
+
+# inputs
+input IGeneralFolderParents {
+    gfpId: ID
+    gfId: ID
+    cId: ID
+    aId: ID
+    gfName: String
+    parentId: ID!
+    gfLevel: Int!
+    gfpState: Int
+}
+
+# Mutations
+type Mutation {
+    "Añade carpetas"
+    createGeneralFolderParent(input: IGeneralFolderParents!): GeneralFolderParent
+}

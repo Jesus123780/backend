@@ -1,0 +1,31 @@
+# Types
+type UserPermits {
+    upId: ID!
+    uId: ID!
+    smId: ID!
+    upState: Int
+    upDatCre: DateTime
+    upDatMod: DateTime
+}
+
+# Inputs
+input ITUserPermits {
+    upId: ID
+    smId: ID!
+    upState: Int
+}
+input IUserPermits {
+    uId: ID!
+    smData: [ITUserPermits]!
+}
+
+# Queries
+type Query {
+    "Consulta los permisos de un usuario"
+    userPermits(state: String, id: ID!): [UserPermits]
+}
+
+# Mutations
+type Mutation {
+    createUserPermits(input: IUserPermits): [UserPermits]
+}

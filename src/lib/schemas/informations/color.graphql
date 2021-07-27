@@ -1,0 +1,40 @@
+# types
+type Color {
+    colorId: ID!
+    colorName: String!
+    colorState: Int
+    colorDatCre: DateTime
+    colorDatMod: DateTime
+}
+
+# Inputs    
+input IColor {
+    colorId: ID!
+    colorName: String!
+    colorState: Int
+    colorDatCre: DateTime
+    colorDatMod: DateTime
+}
+
+input IColorEdit {
+    colorId: ID!
+    colorName: String!
+    colorState: Int
+    colorDatCre: DateTime
+    colorDatMod: DateTime
+}
+
+# Queries
+type Query {
+    "Consulta todos los colores"
+    getOneColor(colorId: ID!): [Color]
+    getAllColor: [Color]
+}
+
+# Mutations
+type Mutation {
+    "Registra unos colores"
+    createColor(input: IColor): Color
+    "Edita un unos colores"
+    editColor(input: IColorEdit!): Color
+}

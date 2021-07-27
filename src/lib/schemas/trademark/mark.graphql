@@ -1,0 +1,24 @@
+# types
+type Trademark {
+    tId: ID
+    Name: String
+    Icon: Int
+    DatCre: DateTime
+    DatMod: DateTime
+}
+
+# Inputs    
+input ITrade {
+    tId: ID
+    Name: String
+    Icon: Int
+    DatCre: DateTime
+    DatMod: DateTime
+}
+
+# Queries
+type Query {
+    "Consulta una Marca"
+    trademarkOne( tId: ID ): Trademark
+    trademarkAll: [Trademark]
+}

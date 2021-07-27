@@ -1,0 +1,43 @@
+# EmployeeRequirements
+type EmployeeRequirements {
+    erId: ID!
+    eId: ID!
+    rId: ID!
+    efId: ID!
+    erName: String!
+    erSecNam: String
+    erObs: String
+    erState: Int
+    path: String
+    erDatCre: DateTime
+    erDatMod: DateTime
+}
+
+# input type search documents
+input IEmpReqSea {
+    umId: ID!
+    eId: ID
+    efId: ID
+    state: Int
+}
+# Query
+type Query {
+    "Obtiene los documentos"
+    employeeRequirements(input: IEmpReqSea): [EmployeeRequirements]
+}
+
+# Type input
+input InputEmployeeRequirements {
+    eId: ID!
+    rId: ID!
+    efId: ID!
+    erName: String!
+    erSecNam: String
+    erObs: String
+}
+
+# Mutations
+type Mutation {
+    "inserta un documento a empleado"
+    setEmployeeRequirements(input: InputEmployeeRequirements!): EmployeeRequirements
+}

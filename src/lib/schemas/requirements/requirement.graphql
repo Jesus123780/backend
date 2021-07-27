@@ -1,0 +1,36 @@
+# Types
+type Requirement {
+    rId: ID!
+    aId: ID!
+    rPriority: Int
+    rName: String!
+    rAcronym: String!
+    rQuality: Int!
+    rState: Int
+    area: Area
+    rDatCre: DateTime
+    rDatMod: DateTime
+}
+
+# Inputs
+input IRequirement {
+    rId: ID
+    aId: ID!
+    rPriority: Int
+    rName: String!
+    rAcronym: String!
+    rQuality: Int!
+    rState: Int
+}
+
+# Queries
+type Query {
+    "Obtener todos los requerimientos"
+    requirements(cId: ID, aId: ID, rState: String): [Requirement!]
+}
+
+# Mutations
+type Mutation {
+    "Registrar un nuevo requerimiento"
+    createRequirement(input: IRequirement!): Requirement
+}

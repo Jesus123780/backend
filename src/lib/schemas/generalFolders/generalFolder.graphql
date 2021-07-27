@@ -1,0 +1,33 @@
+# Types
+type GeneralFolders {
+    gfId: ID!
+    cId: ID!
+    aId: ID!
+    gfName: String!
+    gfLevel: Int
+    gfState: Int
+    gfDatCre: DateTime
+    gfDatMod: DateTime
+}
+
+# Input
+input IGeneralFolder {
+    gfId: ID
+    cId: ID!
+    aId: ID!
+    gfName: String!
+    gfLevel: Int!
+    gfState: Int
+}
+
+# Query
+type Query {
+    "Devuelve todas las carpetas de un cliente para el modulo generales"
+    generalFolders(umId: ID, cId: ID!, aId: ID): [GeneralFolders]
+}
+
+# Mutation
+type Mutation {
+    "Crea una carpeta a un cliente general"
+    createGeneralFolder(input: IGeneralFolder!): GeneralFolders
+}

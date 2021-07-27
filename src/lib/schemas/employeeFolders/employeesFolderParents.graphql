@@ -1,0 +1,35 @@
+# Types
+type EmployeeFolderParent {
+    efpId: ID!
+    efId: ID!
+    parentId: ID!
+    efpLevel: Int!
+    efpState: Int
+    efpDatCre: DateTime
+    efpDatMod: DateTime
+    folder: EmployeeFolders
+}
+
+# Queries
+type Query {
+    "Obtiene todas las carpetas con sus parientes"
+    employeeFolderParents(id: ID!): [EmployeeFolderParent]
+}
+
+# inputs
+input IEmployeeFolderParents {
+    efpId: ID
+    update: Boolean
+    efId: ID
+    eId: ID
+    efName: String
+    parentId: ID!
+    efLevel: Int!
+    efpState: Int
+}
+
+# Mutations
+type Mutation {
+    "Añade carpetas"
+    createEmployeeFolderParent(input: IEmployeeFolderParents!): EmployeeFolderParent
+}

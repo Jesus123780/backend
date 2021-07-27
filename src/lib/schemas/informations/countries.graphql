@@ -1,0 +1,44 @@
+# types
+type Country {
+    cId: ID!
+    cName: String
+    cCalCod: String
+    cState: Int
+    client: Product
+    cDatCre: DateTime
+    cDatMod: DateTime
+}
+
+# Inputs    
+input ICountry {
+    cId: ID #Solo para actualizar
+    cName: String!
+    cCalCod: ID
+    cState: String
+}
+input IEditCountries {
+    cId: ID
+    cName: String
+    cCalCod: ID
+    cState: String
+}
+input IDeleteCountries {
+    cId: ID
+    cCalCod: ID
+    cState: String
+}
+
+
+# Queries
+type Query {
+    "Consulta todos los países"
+    countries: [Country]
+}
+
+# Mutations
+type Mutation {
+    "Registra un cliente"
+    createCountry(input: ICountry): Country
+    editCountries(input: IEditCountries!): Country
+    deleteCountries(input: IDeleteCountries!): Country
+}

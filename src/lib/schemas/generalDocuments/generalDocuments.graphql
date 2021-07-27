@@ -1,0 +1,39 @@
+# Types
+type GeneralDocument {
+    gdId: ID!
+    cId: ID!
+    gfId: ID!
+    gdName: String!
+    gdSecNam: String
+    gdState: Int
+    path: String
+    gdDatCre: DateTime
+    gdDatMod: DateTime
+}
+
+# input
+input IQGeneralDocument {
+    umId: ID!
+    cId: ID
+    gfId: ID
+    state: Int
+}
+# Query
+type Query {
+    "Obtiene los documentos"
+    generalDocuments(input: IQGeneralDocument): [GeneralDocument]
+}
+
+# Type input
+input ICGeneralDocument {
+    cId: ID!
+    gfId: ID!
+    gdName: String!
+    gdSecNam: String
+}
+
+# Mutations
+type Mutation {
+    "inserta un documento a un cliente"
+    createGeneralDocument(input: ICGeneralDocument!): GeneralDocument
+}

@@ -1,0 +1,52 @@
+# types
+type ThirdParties {
+    tpId: ID!
+    umId: ID!
+    countryId: ID
+    dId: ID
+    cId: ID
+    tiId: ID!
+    tpNitDV: String
+    tpNumDoc: String!
+    tpName: String!
+    tpLasNam: String!
+    tpPhone: String
+    tpEmail: String
+    tpDir: String
+    tpState: Int
+    tpDatCre: DateTime
+    tpDatMod: DateTime
+}
+
+# Inputs    
+input IThirdParties {
+    tpId: ID #Solo para actualizar
+    umId: ID!
+    countryId: ID!
+    dId: ID!
+    cId: ID!
+    tiId: ID!
+    tpNitDV: String
+    tpNumDoc: String!
+    tpName: String!
+    tpLasNam: String!
+    tpPhone: String
+    tpEmail: String
+    tpDir: String
+    tpState: Int
+}
+
+# Queries
+type Query {
+    "Consulta todos los terceros"
+    thirdParties(umId: ID!): [ThirdParties]
+    "Busca un tercero"
+    searchThirdParties(tpNumDoc: String!): ThirdParties
+}
+
+
+# Mutations
+type Mutation {
+    "Registra un cliente"
+    createThirdParties(input: IThirdParties): ThirdParties
+}

@@ -1,0 +1,31 @@
+#Type
+type DocumentsLocationJoin {
+    dljId: ID!
+    dlId: ID!
+    parentId: ID!
+    dljLevel: String!
+    dljState: Int
+    dljDatCre: DateTime
+    dljDatMod: DateTime
+    documentsLocation: DocumentsLocation
+}
+
+type Query {
+    "Obtiene todas las uniones de ubicacion"
+    documentsLocationJoin(id: ID): [DocumentsLocationJoin]
+}
+
+# Tipo union de ubicacion Input
+input InputDocumentsLocationJoin {
+    umId: ID!
+    parentId: ID!
+    dlName: String!
+    dljLevel: Int!
+    dljState: Int
+}
+
+
+type Mutation {
+    "union de ubicacion"
+    setDocumentsLocationJoin(input: InputDocumentsLocationJoin!): DocumentsLocationJoin
+}

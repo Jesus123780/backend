@@ -1,0 +1,40 @@
+# Types
+type Storage {
+    sId: ID!
+    umId: ID!
+    stId: ID
+    sAccessKeyId: String!
+    sSecretAccessKey: String!
+    sName: String!
+    sRegion: String
+    sState: Int
+    sDatCre: DateTime
+    sDatMod: DateTime
+    storageType: StorageType
+}
+
+# Inputs
+input IStorage {
+    sId: ID
+    umId: ID!
+    stId: ID!
+    sAccessKeyId: String!
+    sSecretAccessKey: String!
+    sName: String!
+    sRegion: String
+    sState: Int
+}
+
+# Queries
+type Query {
+    "Consulta los datos de almacen para un usuario"
+    storages(umId: ID!, state: String): [Storage]
+}
+
+
+type Mutation {
+    "Registra un nuevo almacen"
+    createStorage(input: IStorage!): Storage
+    "Cambia de estado un almacen"
+    changeStateStorage(sState: String!, sId: ID!, umId: ID!): Storage
+}

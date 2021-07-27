@@ -1,0 +1,74 @@
+# Types
+type User {
+  id: ID
+  name: ID
+  username: String
+  lastName: String
+  email: String
+  siteWeb: String
+  description: String
+  uPhoNum: String
+  upLat: String
+  upLon: String
+  password: String
+  avatar: String
+  createAt: String
+}
+type Token {
+  token: String
+}
+type UpdateAvatar {
+  status: Boolean,
+  urlAvatar: String
+}
+
+# Inputs
+input UserInput {
+  name: String!
+  username: String!
+  lastName: String
+  email: String
+  siteWeb: String
+  description: String
+  uPhoNum: String
+  upLat: String
+  upLon: String
+  password: String
+  avatar: String
+  createAt: String
+}
+input LoginInput {
+  email: String!
+  password: String!
+}
+input UserUpdateInput {
+  name: String 
+  email: String 
+  currentPassword: String 
+  newPassword: String 
+  siteWeb: String 
+  description: String 
+  uPhoNum: String
+}
+input UserRecoverAccount {
+  token: String 
+}
+
+# Queries
+type Query {
+  "Consulta todos los usuarios Registrados"
+  getUser(id: ID, username: String, name: String): User 
+  search(search: String, min: Int, max: Int ): [User] 
+  RecoverPass(RecoverPass: String ): [Token] 
+}
+
+# Mutations
+type Mutation {
+  "Registra un Usuarios"
+  register(input: UserInput): User
+  login(input: LoginInput): Token
+  UpdateAvatar(file: Upload): UpdateAvatar
+  UpdateUser(input: UserUpdateInput) : String
+  RecoverPass(input: UserRecoverAccount) : String
+
+}

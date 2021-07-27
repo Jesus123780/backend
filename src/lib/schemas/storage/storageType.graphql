@@ -1,0 +1,12 @@
+# Types
+type StorageType {
+    stId: ID!
+    stName: String!
+    stState: Int
+}
+
+# Queries
+type Query {
+    "Consulta los tipos de almacenes"
+    storageTypes: [StorageType]
+}

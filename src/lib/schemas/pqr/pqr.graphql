@@ -1,0 +1,37 @@
+# Types
+type PQR {
+    hpqrId: ID!
+    thpId: ID!
+    hpqrQuestion: String!
+    hpqrAnswer: String
+    hpqrState: String
+    hpqrDatCre: String
+    hpqrDatMod: String
+    typepqr: TypePQR
+
+}
+
+# Inputs
+input IPQR {
+    hpqrId: ID!
+    thpId: ID!
+    hpqrQuestion: String!
+    hpqrAnswer: String
+    hpqrState: String
+    hpqrDatCre: String
+    hpqrDatMod: String
+}
+
+# Queries
+type Query {
+    "Consulta todos los Pqr"
+    pqr: [PQR]
+    "Consulta un Pqr"
+    getOnePqr(hpqrId: ID, thpId: ID): PQR 
+}
+
+# Mutations
+type Mutation {
+    "Registra un PQR"
+    createPqr(input: IPQR): PQR
+}

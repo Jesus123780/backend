@@ -1,0 +1,31 @@
+# Type
+type FolderParent {
+    fpId: ID!
+    fId: ID!
+    parentId: ID!
+    fpLevel: String!
+    fpState: Int
+    fpDatCre: DateTime
+    fpDatMod: DateTime
+    folder: Folder
+}
+
+type Query {
+    "Obtiene todas las carpetas con sus parientes"
+    foldersParents(id: ID): [FolderParent]
+}
+
+# Tipo Folder Input
+input InputFolderParent {
+    uId: ID!
+    parentId: ID!
+    fName: String!
+    fpLevel: Int!
+    fpState: Int
+}
+
+
+type Mutation {
+    "Añade carpetas"
+    setFolderParent(input: InputFolderParent!): FolderParent
+}

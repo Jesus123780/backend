@@ -1,0 +1,34 @@
+type Folder {
+    fId: ID!
+    uId: ID!
+    fName: String!
+    fState: Int
+    fLevel: Int!
+    fDatCre: DateTime
+    fDatMod: DateTime
+}
+
+input QueryFolder {
+    id: ID
+    state: Int
+    level: Int
+}
+
+type Query {
+    "Obtiene todas las carpetas"
+    folders(input: QueryFolder): [Folder]
+}
+
+# Tipo Folder Input
+input InputFolder {
+    uId: ID!
+    fName: String!
+    fLevel: Int!
+    fState: Int
+}
+
+
+type Mutation {
+    "Añade carpetas"
+    setFolder(input: InputFolder!): Folder
+}

@@ -1,0 +1,55 @@
+const { folderQueries } = require('./folders')
+const { folderParentsQueries } = require('./folderParents')
+const { employeeRequirementsQueries } = require('./employeeRequirements')
+const { employeesQueries } = require('./employees')
+const { employeeFoldersQueries } = require('./employeeFolders')
+const { employeeFolderParentsQueries } = require('./employeeFolderParents')
+const { areasQueries } = require('./featuresProducts')
+const { clientsQueries } = require('./products')
+const { userQueries } = require('./users')
+const { moduleQueries } = require('./modules')
+const { subModuleQueries } = require('./submodules')
+const { userPermitsQueries } = require('./userPermits')
+const { fileUploadQueries } = require('./fileUpload')
+const { thirdPartiesQueries } = require('./thirdParties')
+const { storageQueries } = require('./storage')
+const { storageTypesQueries } = require('./storageTypes')
+const { informationQueries } = require('./informations')
+const { lawyersQueries } = require('./lawyers')
+const { requirementQueries } = require('./requirements')
+const { generalFolderParentsQueries } = require('./generalFolderParents')
+const { generalFoldersQueries } = require('./GeneralFolders')
+const { generalDocumentsQueries } = require('./generalDocuments')
+const { getUser } = require('./userLogin')
+const { colorQueries } = require('./informations/Color')
+const { trademarkQueries } = require('./trademark')
+const { pqrQueriesT } = require('./pqr/transporter')
+
+module.exports = {
+    ...areasQueries,
+    ...clientsQueries,
+    ...employeesQueries,
+    ...employeeFoldersQueries,
+    ...employeeFolderParentsQueries,
+    ...employeeRequirementsQueries,
+    ...folderQueries,
+    ...folderParentsQueries,
+    ...fileUploadQueries,
+    ...generalDocumentsQueries,
+    ...generalFolderParentsQueries,
+    ...generalFoldersQueries,
+    ...informationQueries,
+    ...lawyersQueries,
+    ...moduleQueries,
+    ...requirementQueries,
+    ...subModuleQueries,
+    ...storageQueries,
+    ...storageTypesQueries,
+    ...thirdPartiesQueries,
+    ...userQueries,
+    ...userPermitsQueries,
+    ...getUser,
+    ...colorQueries,
+    ...trademarkQueries,
+    ...pqrQueriesT,
+}

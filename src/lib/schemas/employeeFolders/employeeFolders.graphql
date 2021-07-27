@@ -1,0 +1,31 @@
+# Employee Folders
+type EmployeeFolders {
+    efId: ID!
+    eId: ID!
+    efName: String!
+    efLevel: Int
+    efState: Int
+    efDatCre: DateTime
+    efDatMod: DateTime
+}
+
+# Input
+input IEmployeeFolder {
+    efId: ID
+    eId: ID!
+    efName: String!
+    efLevel: Int!
+    efState: Int
+}
+
+# Query
+type Query {
+    "Devuelve todas las carpetas de un empleados"
+    employeesFolders(umId: ID, eId: ID!): [EmployeeFolders]
+}
+
+# Mutation
+type Mutation {
+    "Crea una carpeta a un empleado"
+    createEmployeeFolders(input: IEmployeeFolder!): EmployeeFolders
+}

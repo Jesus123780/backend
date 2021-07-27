@@ -1,0 +1,29 @@
+# types
+type Road {
+    rId: ID!
+    rName: String!
+    rState: Int
+    rDatCre: DateTime
+    rDatMod: DateTime
+}
+
+input IRoad {
+    rId: ID
+    rName: String
+    rState: Int
+    rDatCre: DateTime
+    rDatMod: DateTime
+}
+
+# Queries
+type Query {
+    "Consulta todos departamentos de un país"
+    road: [Road]
+}
+
+# Mutations
+type Mutation {
+    "Registra un cliente"
+    createRoad(input: IRoad!): Road
+    editRoad(input: IRoad!): Road
+}

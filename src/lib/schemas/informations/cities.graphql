@@ -1,0 +1,39 @@
+# types
+type City {
+    ctId: ID!
+    dId: ID
+    cName: String!
+    cState: Int
+    cDatCre: DateTime
+    cDatMod: DateTime
+}
+
+# Inputs    
+input ICity {
+    ctId: ID #Solo para actualizar
+    dId: ID
+    cName: String
+    cState: Int
+}
+
+input IEditMunicipalities {
+    ctId: ID #Solo para actualizar
+    dId: ID
+    cName: String
+    cState: Int
+}
+
+# Queries
+type Query {
+    "Consulta todas las ciudades de un departamento"
+    cities(dId: ID!): [City]
+    getCities: [City]
+}
+
+# Mutations
+type Mutation {
+    "Registra una ciudad sobre un departamento"
+    createCity(input: ICity): City
+    "Edita un IMunicipalities"
+    editMunicipalities(input: IEditMunicipalities!): City
+}

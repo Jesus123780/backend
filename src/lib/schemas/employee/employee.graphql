@@ -1,0 +1,57 @@
+# Employee
+type Employee {
+    eId: ID
+    aId: ID!
+    tpId: ID!
+    eEnterprise: String
+    eSalary: String
+    eCharge: String
+    typeContract: String
+    termContract: String
+    eDatAdm: DateTime
+    eDatRet: DateTime
+    eArl: String
+    eBoxComp: String
+    eState: Int
+    eDatCre: DateTime
+    eDatMod: DateTime
+    area: Area
+    thirdParties: ThirdParties
+}
+
+# Input
+input IEmployee {
+    eId: ID
+    aId: ID!
+    tpId: ID!
+    eEnterprise: String
+    eSalary: String!
+    eCharge: String!
+    typeContract: String
+    termContract: String
+    eDatAdm: DateTime!
+    eDatRet: DateTime
+    eArl: String
+    eBoxComp: String
+    eState: Int
+    tpNumDoc: String
+    tpName: String
+    tpLasNam: String
+    tpPhone: String
+    tpEmail: String
+    tpState: Int
+}
+
+# Query
+type Query {
+    "Devuelve todos los empleados"
+    employees(umId: ID, cId: ID, aId: ID): [Employee]
+    "Devuelve un empleado"
+    employee(eId: ID, tpId: ID): Employee
+}
+
+# Mutation
+type Mutation {
+    "Esto crea un nuevo empleado"
+    createEmployee(input: IEmployee!): Employee
+}

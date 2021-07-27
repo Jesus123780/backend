@@ -1,0 +1,27 @@
+# types
+type TypeIdentity {
+    tiId: ID!
+    tiName: String
+    tiState: Int
+    tiDatCre: DateTime
+    tiDatMod: DateTime
+}
+
+# Inputs    
+input ITypeIdentity {
+    tiId: ID #Solo para actualizar
+    tiName: String
+    tiState: Int
+}
+
+# Queries
+type Query {
+    "Consulta los tipos de documento"
+    typeIdentities: [TypeIdentity]
+}
+
+# Mutations
+type Mutation {
+    "Registra un tipo de identidad"
+    createTypeIdentity(input: ITypeIdentity): TypeIdentity
+}

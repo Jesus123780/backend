@@ -1,0 +1,33 @@
+# types
+type Lawyer {
+    lId: ID!
+    tpId: ID!
+    lCollectionEntity: String!
+    lFee: String!
+    lState: Int!
+    lDatCre: DateTime
+    lDatMod: DateTime
+    thirdParties: ThirdParties
+}
+
+# Inputs    
+input ILawyer {
+    lId: ID
+    umId: ID!
+    tpId: ID!
+    lCollectionEntity: String!
+    lFee: String!
+    lState: Int
+}
+
+# Queries
+type Query {
+    "Consulta todos los abogados"
+    lawyers: [Lawyer]
+}
+
+# Mutations
+type Mutation {
+    "Registra un abogado"
+    setLawyers(input: ILawyer!): Lawyer
+}

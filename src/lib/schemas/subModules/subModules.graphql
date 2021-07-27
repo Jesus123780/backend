@@ -1,0 +1,32 @@
+# Types
+type SubModule {
+    smId: ID!
+    mId: ID!
+    smPath: String!
+    smName: String!
+    smPriority: Int
+    smState: Int
+    smDatCre: DateTime
+    smDatMod: DateTime
+    userPermits: [UserPermits]
+}
+
+# Inputs
+input ISubModule {
+    mId: ID!
+    smPath: String!
+    smName: String!
+    smPriority: Int
+    smState: Int
+}
+
+# Queries
+type Query {
+    "Consulta todos los módulos"
+    subModules: [SubModule]
+}
+
+# Mutations
+type Mutation {
+    createSubModule(input: ISubModule): SubModule
+}

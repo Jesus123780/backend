@@ -1,0 +1,55 @@
+# types
+type User {
+    uId: ID!
+    umId: ID!
+    uName: String!
+    uLasNam: String
+    uPhone: String
+    uEmail: String!
+    uPassword: String
+    uToken: String
+    uState: Int
+    uDatCre: DateTime
+    uDatMod: DateTime
+}
+type UserMaster {
+    umId: ID!
+    umIdAWS: ID!
+    umDatCre: DateTime
+    umDatMod: DateTime
+    user: User
+}
+
+# Input
+input IUser {
+    uId: ID
+    umId: ID!
+    uName: String!
+    uLasNam: String
+    uPhone: String
+    uEmail: String!
+    uPassword: String
+    uToken: String
+}
+
+# Queries
+type Query {
+    "Consulta todos los usuarios maestros"
+    user(id: ID!, state: String): User
+    "Inicio de sesión"
+    userLogin(username: String, password: String): User
+    "Consulta un usuario maestro"
+    users(id: ID): [User]
+    "Consulta un usuario estandar"
+    userMaster(umIdAWS: ID): UserMaster
+}
+
+# Mutations
+type Mutation {
+    "Registra un usuario"
+    createUser(input: IUser): User
+    "Registra un usuario maestro"
+    createUserMaster(umIdAWS: ID!, input: IUser!): UserMaster 
+    "Elimina o cambia de estado"
+    changeUserState(state:String!, uId: ID!): User
+}

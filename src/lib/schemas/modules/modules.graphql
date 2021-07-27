@@ -1,0 +1,36 @@
+# Types
+type Module {
+    mId: ID!
+    mName: String
+    mPath: String!
+    mPriority: Int
+    mIcon: String!
+    mState: Int
+    mDatCre: DateTime
+    mDatMod: DateTime
+    subModules: [SubModule]
+}
+
+# Inputs
+input IModule {
+    mName: String!
+    mPath: String!
+    mPriority: Int!
+    mIcon: String!
+    mState: Int
+}
+input IQModule {
+    uId: ID!
+    upState: String!
+}
+
+# Queries
+type Query {
+    "Consulta todos los módulos"
+    modules(input: IQModule!): [Module]
+}
+
+# Mutations
+type Mutation {
+    createModule(input: IModule): Module
+}

@@ -1,0 +1,20 @@
+type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+}
+
+type FilePath {
+    path: String!
+}
+
+type Query {
+    "Consulta un archivo sobre amazón"
+    filePath(key: String!, umId: ID!): FilePath
+}
+
+type Mutation {
+    "Registra un archivo nuevo"
+    uploadFile(file: Upload!, umId: ID!, pnNum: String!, folder: String): File
+}
+

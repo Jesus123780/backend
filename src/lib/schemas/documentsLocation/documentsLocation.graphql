@@ -1,0 +1,34 @@
+type DocumentsLocation {
+    dlId: ID!
+    umId: ID!
+    dlName: String!
+    dlState: Int
+    dlLevel: Int!
+    dlDatCre: DateTime
+    dlDatMod: DateTime
+}
+
+input QueryDocumentsLocation {
+    id: ID
+    state:Int
+    level: Int
+}
+
+type Query {
+    "Obtiene todas las carpetas"
+    documentsLocation(input: QueryDocumentsLocation): [DocumentsLocation]
+}
+
+# Tipo Folder Input
+input InputDocumentsLocation {
+    umId: ID!
+    dlName: String!
+    dlLevel: Int!
+    dlState: Int
+}
+
+
+type Mutation {
+    "Añade carpetas"
+    setDocumentsLocation(input: InputDocumentsLocation!): DocumentsLocation
+}

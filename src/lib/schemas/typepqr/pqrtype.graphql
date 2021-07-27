@@ -1,0 +1,14 @@
+# Types
+type TypePQR {
+    thpId: ID!
+    thpName: String!
+    thpIcon: String!
+    thpState: String
+    thpDatCre: String
+    thpDatMod: String
+}
+
+# Queries
+type Query {
+    typopqr(thpId: ID): [TypePQR]
+}
