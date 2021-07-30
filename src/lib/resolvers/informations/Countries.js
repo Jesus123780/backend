@@ -3,8 +3,7 @@
 const { ApolloError } = require('apollo-server')
 const { Op } = require('sequelize')
 const CountriesModel = require('../../../models/information/CountriesModel')
-const ProductsModel = require('../../../models/Products/Products')
-const { getAttributes, deCode } = require('../../../utils')
+const { getAttributes } = require('../../../utils')
 
 // Queries
 const countriesQueries = {
@@ -19,19 +18,20 @@ const countriesQueries = {
     }
 }
 
-// Types
-const countriesTypes = {
-    Country: {
-        client: async (parent, _args, _context, info) => {
-            try {
-                const attributes = getAttributes(ProductsModel, info)
-                const data = await ProductsModel.findOne({ attributes, where: { pId: deCode(parent.pId) } })
-                return data
-            } catch { return null }
-        },
+// Mutations
+const countriesMutation = {
+    createCountry: async (_root, { input }) => {
+        // eslint-disable-next-line
+        console.log('object')
+        try {
+            const data = await CountriesModel.create({ ...input, cState: 1 })
+            return data
+        } catch (e) {
+            throw new ApolloError('No ha sido posible procesar su solicitud.', 500, e)
+        }
     }
 }
 module.exports = {
     countriesQueries,
-    countriesTypes,
+    countriesMutation,
 }

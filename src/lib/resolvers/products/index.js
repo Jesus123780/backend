@@ -4,11 +4,24 @@ const { Op } = require('sequelize')
 const ProductsModel = require('../../../models/products/products')
 const ThirdPartiesModel = require('../../../models/thirdParties/ThirdPartiesModel')
 const AreasModel = require('../../../models/featuresProducts/AreasModel')
-const { deCode, getAttributes, filterKeyObject, linkBelongsTo } = require('../../../utils')
+const { deCode, getAttributes, linkBelongsTo } = require('../../../utils')
 const CountriesModel = require('../../../models/information/CountriesModel')
 const CitiesModel = require('../../../models/information/CitiesModel')
 const DepartmentsModel = require('../../../models/information/DepartmentsModel')
 const trademarkModel = require('../../../models/Products/trademark')
+
+// Mutations
+const ProductMutations = {
+    createProduct: async (_root, { input }) => {
+        console.log(input)
+        try {
+            const data = await ProductsModel.create({ ...input })
+            return data
+        } catch (e) {
+            throw new ApolloError('No ha sido posible procesar su solicitud.', 500, e)
+        }
+    }
+}
 
 // Queries
 const clientsQueries = {
@@ -86,43 +99,6 @@ const clientsQueries = {
         } catch (e) {
             const error = new Error('Lo sentimos, ha ocurrido un error interno')
             return error
-        }
-    }
-}
-
-// Mutations
-const clientsMutations = {
-    setClient: async (_root, { input }) => {
-        try {
-            const { tpId, pId } = input || {}
-
-            if (pId) {
-                const fields = filterKeyObject(input, ['pId', '__typename'])
-                await ProductsModel.update(
-                    { ...fields },
-                    { where: { pId: deCode(pId) } }
-                )
-                return { ...input }
-            } else {
-                const isClientExist = await ProductsModel.findOne({
-                    attributes: ['pId', 'ProState'],
-                    where: { tpId: deCode(tpId) }
-                })
-                if (isClientExist?.ProState?.toString() === '0') {
-                    await ProductsModel.update({ ...input, ProState: 1 }, { where: { pId: deCode(isClientExist.pId) } })
-                    return { ...input, pId: isClientExist.pId }
-                }
-                else if (isClientExist) throw new Error('El cliente ya se encuentra registrado.')
-
-                const data = await ProductsModel.create({
-                    ProState: 1,
-                    tpId,
-                    ...input
-                })
-                return { ...input, pId: data.pId }
-            }
-        } catch (e) {
-            throw new ApolloError(e.message)
         }
     }
 }
@@ -214,6 +190,6 @@ const clientsTypes = {
 }
 module.exports = {
     clientsQueries,
-    clientsMutations,
+    ProductMutations,
     clientsTypes
 }

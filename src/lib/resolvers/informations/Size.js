@@ -19,6 +19,7 @@ const sizeQueries = {
 const sizeMutation = {
     // eslint-disable-next-line
     create: async (_root,  { input }, _context, _info) => {
+        console.log(input)
         try {
             const res = await SizeModel.create({ ...input })
             return res

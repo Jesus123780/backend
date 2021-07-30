@@ -13,11 +13,7 @@ const colorQueries = {
             const data = await colorModel.findAll({
                 attributes,
                 where: {
-                    [Op.or]: [
-                        {
-                            colorId: colorId ? deCode(colorId) : { [Op.gt]: 0 },
-                        }
-                    ]
+                    colorState: { [Op.gt]: 0 }, colorId: colorId ? deCode(colorId) : { [Op.gt]: 0, }
                 }
             })
             return data

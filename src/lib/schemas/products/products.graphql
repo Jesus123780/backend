@@ -1,7 +1,7 @@
 # types
 type Product {
-    pId: ID!
-    tpId: ID!
+    pId: ID
+    tpId: ID
     # país
     cId: ID
     # departamento
@@ -43,9 +43,15 @@ type Product {
 
 # Inputs    
 input IProduct {
-    pId: ID
-    umId: ID!
-    tpId: ID!
+    pId: ID!
+    # país
+    cId: ID
+    # departamento
+    dId: ID
+    # Cuidad
+    ctId: ID
+    # Marca
+    tId: ID
     ProName: String
     ProPrice: String
     ProDescuento: String
@@ -82,5 +88,5 @@ type Query {
 # Mutations
 type Mutation {
     "Registra un cliente"
-    setClient(input: IProduct!): Product
+     createProduct(input: IProduct): Product
 }

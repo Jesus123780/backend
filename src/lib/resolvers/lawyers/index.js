@@ -1,8 +1,8 @@
 
-const LawyersModel = require("../../../models/lawyers/LawyersModel")
-const { getAttributes, deCode, filterKeyObject } = require("../../../utils")
-const { ApolloError } = require("apollo-server-errors")
-const ThirdPartiesModel = require("../../../models/thirdParties/ThirdPartiesModel")
+const LawyersModel = require('../../../models/lawyers/LawyersModel')
+const { getAttributes, deCode, filterKeyObject } = require('../../../utils')
+const { ApolloError } = require('apollo-server-errors')
+const ThirdPartiesModel = require('../../../models/thirdParties/ThirdPartiesModel')
 
 //Queries
 const lawyersQueries = {
@@ -24,17 +24,17 @@ const lawyersMutations = {
         try {
             const { tpId, lId } = input || {}
             let values = {}
-            for (let elem in input) if (input !== '__typename') values = { ...values, [elem]: input[elem] }
-            if(lId){
+            for (const elem in input) if (input !== '__typename') values = { ...values, [elem]: input[elem] }
+            if (lId){
                 const values = filterKeyObject(input, ['lId', '__typename'])
                 await LawyersModel.update({ ...values }, { where: { lId: deCode(lId) } })
                 return { ...input }
-            }else{
-                const isLawyerExist = await LawyersModel.findOne({ attributes:['tpId'], where: { tpId: deCode(tpId) }})
-                if(isLawyerExist)
-                    throw new Error('El Abogado ya se encuentra registrado.')
-                
-                const data = await LawyersModel.create({ lState: 1, tpId: tpId, ...input })
+            } else {
+                const isLawyerExist = await LawyersModel.findOne({ attributes:['tpId'], where: { tpId: deCode(tpId) } })
+                if (isLawyerExist)
+                {throw new Error('El Abogado ya se encuentra registrado.')}
+
+                const data = await LawyersModel.create({ lState: 1, tpId, ...input })
                 return { lState: 1, ...input, lId: data.lId }
             }
         } catch (e) {
@@ -56,7 +56,6 @@ const lawyersTypes = {
         }
     }
 }
-
 
 module.exports = {
     lawyersQueries,

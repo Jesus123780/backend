@@ -17,6 +17,42 @@ const departmentsQueries = {
         }
     }
 }
+
+// Queries
+const departmentsAllQueries = {
+    // eslint-disable-next-line
+    department: async (_root, _context, info) => {
+        try {
+            console.log('object')
+            const data = await DepartmentsModel.findAll({
+                attributes: [
+                    'dId',
+                    'dName',
+                    'dState',
+                ],
+                order: [['dName', 'DESC']]
+            })
+            return data
+        } catch (e) {
+            throw new ApolloError('Lo sentimos, ha ocurrido un error interno')
+        }
+    }
+}
+// Mutations
+const departmentsMutation = {
+    createDepartments: async (_root, { input }) => {
+        // eslint-disable-next-line
+        const { dName, cId } = input
+        try {
+            const data = await DepartmentsModel.create({ dName, cId: deCode(cId), dState: 1 })
+            return data
+        } catch (e) {
+            throw new ApolloError('No ha sido posible procesar su solicitud.', 500, e)
+        }
+    }
+}
 module.exports = {
-    departmentsQueries
+    departmentsQueries,
+    departmentsMutation,
+    departmentsAllQueries,
 }

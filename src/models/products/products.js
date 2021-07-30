@@ -21,9 +21,9 @@ const ProductsModel = sequelize.define('products', {
     },
     tpId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        allowNull: true,
+        onUpdate: null,
+        onDelete: null,
         references: {
             model: ThirdPartiesModel,
             key: 'tpId'
@@ -34,11 +34,11 @@ const ProductsModel = sequelize.define('products', {
     },
     ProName: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: true
     },
     ProPrice: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     ProDescuento: {
         type: Sequelize.INTEGER,
@@ -75,7 +75,7 @@ const ProductsModel = sequelize.define('products', {
     ProImage: {
         type: Sequelize.STRING,
         trim: true,
-        allowNull: false
+        allowNull: true
     },
     // Ancho
     ProWidth: {
@@ -100,7 +100,7 @@ const ProductsModel = sequelize.define('products', {
     // Cantidad
     ProQuantity: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     // Destacado
     ProOutstanding: {
@@ -118,13 +118,13 @@ const ProductsModel = sequelize.define('products', {
     // CAMBIO DE ESTADO PARA BORRAR EL PRODUCTO
     ProState: {
         type: Sequelize.TINYINT,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 1
     },
     // talla del producto
     sizeId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
@@ -136,7 +136,7 @@ const ProductsModel = sequelize.define('products', {
     // Marca comercial de producto
     tId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
@@ -148,7 +148,7 @@ const ProductsModel = sequelize.define('products', {
     // color
     colorId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {

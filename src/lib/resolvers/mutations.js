@@ -4,7 +4,6 @@ const { employeeRequirementsMutation } = require('./employeeRequirements')
 const { employeeMutations } = require('./employees')
 const { employeeFoldersMutations } = require('./employeeFolders')
 const { employeeFolderParentsMutations } = require('./employeeFolderParents')
-const { clientsMutations } = require('./products')
 const { userMutations } = require('./users')
 const { moduleMutations } = require('./modules')
 const { subModuleMutations } = require('./submodules')
@@ -22,10 +21,15 @@ const { registerUserMutation, loginMutation, updateAvatar, UpdateInfo } = requir
 const { typeIdentitiesMutation } = require('./informations/TypeIdentities')
 const { colorMutation } = require('./informations/Color')
 const { sizeMutation } = require('./informations/Size')
+const { ProductMutations } = require('./products/index')
+const { departmentsMutation } = require('./informations/Departments')
+const { countriesMutation } = require('./informations/Countries')
+const { citiesMutation } = require('./informations/Cities')
+const { informationMutation } = require('./informations')
+const { createRoadMutation } = require('./informations/RoadType')
 
 module.exports = {
     ...areasMutations,
-    ...clientsMutations,
     ...employeeMutations,
     ...employeeFoldersMutations,
     ...employeeFolderParentsMutations,
@@ -51,4 +55,10 @@ module.exports = {
     ...typeIdentitiesMutation,
     ...colorMutation,
     ...sizeMutation,
+    ...ProductMutations,
+    ...departmentsMutation,
+    ...countriesMutation,
+    ...citiesMutation,
+    ...informationMutation,
+    ...createRoadMutation,
 }

@@ -24,6 +24,8 @@ const { getUser } = require('./userLogin')
 const { colorQueries } = require('./informations/Color')
 const { trademarkQueries } = require('./trademark')
 const { pqrQueriesT } = require('./pqr/transporter')
+const { departmentsAllQueries } = require('./informations/Departments')
+const { citiesQueriesAll } = require('./informations/Cities')
 
 module.exports = {
     ...areasQueries,
@@ -52,4 +54,6 @@ module.exports = {
     ...colorQueries,
     ...trademarkQueries,
     ...pqrQueriesT,
+    ...departmentsAllQueries,
+    ...citiesQueriesAll,
 }
