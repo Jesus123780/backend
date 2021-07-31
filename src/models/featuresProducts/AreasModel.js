@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const connect = require('../database')
-const ProductsModel = require('../products/products')
+const productModel = require('../product/product')
 const sequelize = connect()
 const { enCode, validationID } = require('../../utils')
 
@@ -17,7 +17,7 @@ const AreasModel = sequelize.define('areas', {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
-            model: ProductsModel,
+            model: productModel,
             key: 'pId'
         },
         get(x) { return enCode(this.getDataValue(x)) },

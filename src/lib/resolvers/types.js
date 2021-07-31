@@ -6,16 +6,14 @@ const { moduleTypes } = require('./modules')
 const { subModuleTypes } = require('./submodules')
 const { fileUploadTypes } = require('./fileUpload')
 const { storageTypes } = require('./storage')
-const { clientsTypes } = require('./products')
 const { lawyersTypes } = require('./lawyers')
 const { requirementTypes } = require('./requirements')
 const { generalFolderParentsTypes } = require('./generalFolderParents')
-const { countriesTypes } = require('./informations/Countries')
 const { pqrQueriesType } = require('./pqr/transporter')
+const { ProductTypes } = require('./product')
 
 module.exports = {
     ...areasTypes,
-    ...clientsTypes,
     ...employeesTypes,
     ...employeeFolderParentsTypes,
     ...fileUploadTypes,
@@ -26,6 +24,6 @@ module.exports = {
     ...requirementTypes,
     ...subModuleTypes,
     ...storageTypes,
-    ...countriesTypes,
     ...pqrQueriesType,
+    ...ProductTypes,
 }

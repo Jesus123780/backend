@@ -6,13 +6,13 @@ const ThirdPartiesModel = require('../thirdParties/ThirdPartiesModel')
 const CitiesModel = require('../information/CitiesModel')
 const DepartmentsModel = require('../information/DepartmentsModel')
 const CountriesModel = require('../information/CountriesModel')
-const colorModel = require('./color')
 const trademarkModel = require('./trademark')
 const SizeModel = require('../information/size')
+const colorModel = require('../information/color')
 
 // sequelize.sync()
 
-const ProductsModel = sequelize.define('products', {
+const ProductsModel = sequelize.define('productseyyyyyyy', {
     pId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -37,7 +37,7 @@ const ProductsModel = sequelize.define('products', {
         allowNull: true
     },
     ProPrice: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: true
     },
     ProDescuento: {
@@ -106,7 +106,7 @@ const ProductsModel = sequelize.define('products', {
     ProOutstanding: {
         type: Sequelize.INTEGER
     },
-    // Entrega
+    // Entrega si es gratis o no
     ProDelivery: {
         type: Sequelize.INTEGER
     },

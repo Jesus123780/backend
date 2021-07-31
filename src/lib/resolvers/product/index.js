@@ -1,55 +1,41 @@
-'use strict'
 const { ApolloError } = require('apollo-server-errors')
 const { Op } = require('sequelize')
-const ProductsModel = require('../../../models/products/products')
-const ThirdPartiesModel = require('../../../models/thirdParties/ThirdPartiesModel')
 const AreasModel = require('../../../models/featuresProducts/AreasModel')
-const { deCode, getAttributes, linkBelongsTo } = require('../../../utils')
-const CountriesModel = require('../../../models/information/CountriesModel')
 const CitiesModel = require('../../../models/information/CitiesModel')
+const colorModel = require('../../../models/information/color')
+const CountriesModel = require('../../../models/information/CountriesModel')
 const DepartmentsModel = require('../../../models/information/DepartmentsModel')
-const trademarkModel = require('../../../models/Products/trademark')
+const productModel = require('../../../models/product/product')
+const trademarkModel = require('../../../models/product/trademark')
+const ThirdPartiesModel = require('../../../models/thirdParties/ThirdPartiesModel')
+const { deCode, getAttributes } = require('../../../utils')
 
 // Mutations
-const ProductMutations = {
-    createProduct: async (_root, { input }) => {
-        console.log(input)
+const UpdateProductMutations = {
+    updateProducts: async (_root, { input }) => {
+        const { sizeId, colorId, cId, dId, ctId } = input
         try {
-            const data = await ProductsModel.create({ ...input })
+            const data = await productModel.create({
+                ...input,
+                pState: 1,
+                sizeId: deCode(sizeId),
+                colorId: deCode(colorId),
+                cId: deCode(cId),
+                dId: deCode(dId),
+                ctId: deCode(ctId),
+            })
             return data
         } catch (e) {
             throw new ApolloError('No ha sido posible procesar su solicitud.', 500, e)
         }
     }
 }
-
 // Queries
-const clientsQueries = {
-    products: async (root, { umId, ProState }, context, info) => {
+const ProductQueries = {
+    productsOne: async (root, { pId, cId, dId, ctId }, context, info) => {
         try {
-            linkBelongsTo(ProductsModel, ThirdPartiesModel, 'tpId', 'tpId')
-            const attributes = getAttributes(ProductsModel, info)
-            const data = await ProductsModel.findAll({
-                attributes,
-                include: [
-                    {
-                        attributes: ['tpId', 'umId'],
-                        model: ThirdPartiesModel,
-                        where: { umId: deCode(umId) },
-                        required: true
-                    }
-                ],
-                where: { ProState: ProState ? ProState : { [Op.gt]: 0 } }
-            })
-            return data
-        } catch (e) {
-            throw new ApolloError('Lo sentimos, ha ocurrido un error interno')
-        }
-    },
-    productsOne: async (root, { pId, tpId, cId, dId, ctId }, context, info) => {
-        try {
-            const attributes = getAttributes(ProductsModel, info)
-            const data = await ProductsModel.findOne({
+            const attributes = getAttributes(productModel, info)
+            const data = await productModel.findOne({
                 attributes,
                 where: {
                     [Op.or]: [
@@ -57,7 +43,7 @@ const clientsQueries = {
                             // ID Productos
                             pId: pId ? deCode(pId) : { [Op.gt]: 0 },
                             // ID adicional
-                            tpId: tpId ? deCode(tpId) : { [Op.gt]: 0 },
+                            // tpId: tpId ? deCode(tpId) : { [Op.gt]: 0 },
                             // ID País
                             cId: cId ? deCode(cId) : { [Op.gt]: 0 },
                             // ID departamento
@@ -73,10 +59,10 @@ const clientsQueries = {
             const error = new Error('Lo sentimos, ha ocurrido un error interno o No hay ningún producto registrado, Vuelve a intentarlo mas tarde ')
             return error
         }
-    }, productsAll: async (root, { pId, tpId, cId, dId, ctId }, context, info) => {
+    }, productsAll: async (root, { pId, cId, dId, ctId }, context, info) => {
         try {
-            const attributes = getAttributes(ProductsModel, info)
-            const data = await ProductsModel.findAll({
+            const attributes = getAttributes(productModel, info)
+            const data = await productModel.findAll({
                 attributes,
                 where: {
                     [Op.or]: [
@@ -84,8 +70,6 @@ const clientsQueries = {
                             // ID Productos
                             pId: pId ? deCode(pId) : { [Op.gt]: 0 },
                             // ID adicional
-                            tpId: tpId ? deCode(tpId) : { [Op.gt]: 0 },
-                            // ID País
                             cId: cId ? deCode(cId) : { [Op.gt]: 0 },
                             // ID departamento
                             dId: dId ? deCode(dId) : { [Op.gt]: 0 },
@@ -102,9 +86,8 @@ const clientsQueries = {
         }
     }
 }
-
 // Types
-const clientsTypes = {
+const ProductTypes = {
     Product: {
         thirdParties: async parent => {
             try {
@@ -185,11 +168,24 @@ const clientsTypes = {
             } catch {
                 return null
             }
+        },
+        color: async (parent, _args, _context, info) => {
+            try {
+                const attributes = getAttributes(colorModel, info)
+                const data = await colorModel.findOne({
+                    attributes,
+                    where: { colorId: deCode(parent.colorId) }
+                })
+                return data
+            } catch {
+                return null
+            }
         }
     }
 }
 module.exports = {
-    clientsQueries,
-    ProductMutations,
-    clientsTypes
+    ProductQueries,
+    UpdateProductMutations,
+    // Types
+    ProductTypes,
 }

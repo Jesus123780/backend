@@ -4,7 +4,7 @@ const Sequelize = require('sequelize')
 const connect = require('../database')
 const sequelize = connect()
 const { enCode, validationID } = require('../../utils')
-const ProductsModel = require('../products/products')
+const ProductsModel = require('../product/product')
 const AreasModel = require('../featuresProducts/AreasModel')
 
 const GeneralFoldersModel = sequelize.define('generalfolders', {

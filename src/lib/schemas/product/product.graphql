@@ -1,0 +1,84 @@
+# types
+type Product {
+    pId: ID!
+    sizeId: ID #Talla
+    colorId: ID #Color
+    cId: ID #Country
+    dId: ID #Department
+    ctId: ID #Cuidad
+    tpId: ID #Características
+    pName: String
+    ProPrice: String
+    ProDescuento: String
+    ProUniDisponibles: String
+    ProDescription: String
+    ProProtegido: String
+    ProAssurance: String
+    ProImage: String
+    ProStar: Int
+    ProWidth: Int
+    ProHeight: Int
+    ProLength: String
+    ProWeight: String
+    ProQuantity: Int
+    ProOutstanding: Int
+    ProDelivery: Int
+    ProVoltaje: String
+    pState: Int
+    pDatCre: DateTime
+    pDatMod: DateTime
+
+    thirdParties: ThirdParties
+    features: [Area]
+    pais: Country
+    city: City
+    department: Department
+    # Marca
+    mark: Trademark
+    color: Color
+}
+
+# Inputs    
+input InputProduct {
+    pId: ID
+    sizeId: ID
+    colorId: ID
+    cId: ID #Country
+    dId: ID #Department
+    ctId: ID #Cuidad
+    pName: String
+    ProPrice: String
+    ProDescuento: String
+    ProUniDisponibles: String
+    ProDescription: String
+    ProProtegido: String
+    ProAssurance: String
+    ProImage: String
+    ProStar: Int
+    ProWidth: Int
+    ProHeight: Int
+    ProLength: String
+    ProWeight: String
+    ProQuantity: Int
+    ProOutstanding: Int
+    ProDelivery: Int
+    ProVoltaje: String
+    pState: Int
+    pDatCre: DateTime
+    pDatMod: DateTime
+}
+
+# Queries
+type Query {
+    "Consulta todos los productos"
+    getProducts: [Product]
+    products: [Product]
+    productsOne(pId: ID, cId: ID, dId: ID, ctId: ID ): Product
+    productsAll(pId: ID, cId: ID, dId: ID, ctId: ID ): [Product]
+}
+
+# Mutations
+type Mutation {
+    "Registra un producto"
+     updateProducts(input: InputProduct): Product
+}

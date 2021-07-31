@@ -1,7 +1,7 @@
 'use strict'
 
 const { Op } = require('sequelize')
-const trademarkModel = require('../../../models/Products/trademark')
+const trademarkModel = require('../../../models/product/trademark')
 const { getAttributes, deCode } = require('../../../utils')
 
 // Queries

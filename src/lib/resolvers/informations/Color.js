@@ -2,7 +2,7 @@
 
 const { ApolloError } = require('apollo-server')
 const { Op } = require('sequelize')
-const colorModel = require('../../../models/products/color')
+const colorModel = require('../../../models/information/color')
 const { getAttributes, deCode } = require('../../../utils')
 
 // Queries

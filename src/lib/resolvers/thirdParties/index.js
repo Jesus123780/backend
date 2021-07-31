@@ -2,7 +2,7 @@
 
 const { ApolloError } = require('apollo-server')
 const { Op } = require('sequelize')
-const ProductsModel = require('../../../models/products/products')
+const ProductsModel = require('../../../models/product/product')
 const ThirdPartiesModel = require('../../../models/thirdParties/ThirdPartiesModel')
 const { getAttributes, deCode, filterKeyObject } = require('../../../utils')
 
