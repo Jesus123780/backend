@@ -1,0 +1,31 @@
+# Types
+type Feature {
+    fId: ID
+    thpId: ID
+    hpqrQuestion: String
+    hpqrState: String
+    hpqrDatCre: String
+    hpqrDatMod: String
+    typeFeature: TypeFeature 
+}
+
+# Inputs
+input IFeature {
+    fId: ID
+    thpId: ID!
+    hpqrQuestion: String
+    hpqrState: String
+    hpqrDatCre: String
+    hpqrDatMod: String
+}
+
+# Queries
+type Query {
+    features: [Feature]
+}
+
+# Mutations
+type Mutation {
+    "Registra un createFeature"
+    createFeature(input: IFeature): Feature
+}

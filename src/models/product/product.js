@@ -75,7 +75,6 @@ const productModel = sequelize.define('product', {
         },
         get(x) { return enCode(this.getDataValue(x)) }
     },
-
     pName: {
         type: Sequelize.STRING,
         allowNull: false,

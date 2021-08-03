@@ -1,6 +1,6 @@
 const { ApolloError } = require('apollo-server-errors')
 const { Op } = require('sequelize')
-const AreasModel = require('../../../models/featuresProducts/AreasModel')
+const AreasModel = require('../../../models/areas/AreasModel')
 const CitiesModel = require('../../../models/information/CitiesModel')
 const colorModel = require('../../../models/information/color')
 const CountriesModel = require('../../../models/information/CountriesModel')
@@ -18,11 +18,11 @@ const UpdateProductMutations = {
             const data = await productModel.create({
                 ...input,
                 pState: 1,
-                sizeId: deCode(sizeId),
-                colorId: deCode(colorId),
-                cId: deCode(cId),
-                dId: deCode(dId),
-                ctId: deCode(ctId),
+                sizeId: sizeId? deCode(sizeId) : null,
+                colorId: colorId ? deCode(colorId) : null,
+                cId:  cId ? deCode(cId) : null,
+                dId:  dId ? deCode(dId) : null,
+                ctId: ctId ? deCode(ctId) : null,
             })
             return data
         } catch (e) {
@@ -42,14 +42,6 @@ const ProductQueries = {
                         {
                             // ID Productos
                             pId: pId ? deCode(pId) : { [Op.gt]: 0 },
-                            // ID adicional
-                            // tpId: tpId ? deCode(tpId) : { [Op.gt]: 0 },
-                            // ID País
-                            cId: cId ? deCode(cId) : { [Op.gt]: 0 },
-                            // ID departamento
-                            dId: dId ? deCode(dId) : { [Op.gt]: 0 },
-                            // ID Cuidad
-                            ctId: ctId ? deCode(ctId) : { [Op.gt]: 0 },
                         }
                     ]
                 }
@@ -77,7 +69,7 @@ const ProductQueries = {
                             ctId: ctId ? deCode(ctId) : { [Op.gt]: 0 },
                         }
                     ]
-                }
+                }, limit: [0, 25]
             })
             return data
         } catch (e) {

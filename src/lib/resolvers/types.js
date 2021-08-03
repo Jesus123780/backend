@@ -1,7 +1,7 @@
 const { foldersParentTypes } = require('./folderParents')
 const { employeesTypes } = require('./employees')
 const { employeeFolderParentsTypes } = require('./employeeFolderParents')
-const { areasTypes } = require('./featuresProducts')
+const { areasTypes } = require('./area')
 const { moduleTypes } = require('./modules')
 const { subModuleTypes } = require('./submodules')
 const { fileUploadTypes } = require('./fileUpload')
@@ -11,6 +11,7 @@ const { requirementTypes } = require('./requirements')
 const { generalFolderParentsTypes } = require('./generalFolderParents')
 const { pqrQueriesType } = require('./pqr/transporter')
 const { ProductTypes } = require('./product')
+const { FeatureTypes } = require('./feature/featureType')
 
 module.exports = {
     ...areasTypes,
@@ -26,4 +27,5 @@ module.exports = {
     ...storageTypes,
     ...pqrQueriesType,
     ...ProductTypes,
+    ...FeatureTypes,
 }

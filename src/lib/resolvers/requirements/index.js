@@ -2,7 +2,7 @@
 
 const { ApolloError } = require('apollo-server-errors')
 const { Op } = require('sequelize')
-const AreasModel = require('../../../models/featuresProducts/AreasModel')
+const AreasModel = require('../../../models/areas/AreasModel')
 const RequirementsModel = require('../../../models/requirements/RequirementsModel')
 const {
     getAttributes,

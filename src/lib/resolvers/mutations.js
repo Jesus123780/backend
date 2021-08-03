@@ -12,7 +12,7 @@ const { fileUploadMutations } = require('./fileUpload')
 const { thirdPartiesMutations } = require('./thirdParties')
 const { storageMutations } = require('./storage')
 const { lawyersMutations } =require('./lawyers')
-const { areasMutations } = require('./featuresProducts')
+const { areasMutations } = require('./area')
 const { requirementMutations } = require('./requirements')
 const { generalFoldersMutations } = require('./GeneralFolders')
 const { generalFolderParentsMutations } = require('./generalFolderParents')
@@ -27,6 +27,7 @@ const { citiesMutation } = require('./informations/Cities')
 const { informationMutation } = require('./informations')
 const { createRoadMutation } = require('./informations/RoadType')
 const { UpdateProductMutations } = require('./product')
+const { createFeatureMutations } = require('./feature')
 
 module.exports = {
     ...areasMutations,
@@ -61,4 +62,5 @@ module.exports = {
     ...informationMutation,
     ...createRoadMutation,
     ...UpdateProductMutations,
+    ...createFeatureMutations,
 }

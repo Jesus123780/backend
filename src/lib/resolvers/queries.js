@@ -4,7 +4,7 @@ const { employeeRequirementsQueries } = require('./employeeRequirements')
 const { employeesQueries } = require('./employees')
 const { employeeFoldersQueries } = require('./employeeFolders')
 const { employeeFolderParentsQueries } = require('./employeeFolderParents')
-const { areasQueries } = require('./featuresProducts')
+const { areasQueries } = require('./area')
 const { userQueries } = require('./users')
 const { moduleQueries } = require('./modules')
 const { subModuleQueries } = require('./submodules')
@@ -26,6 +26,8 @@ const { pqrQueriesT } = require('./pqr/transporter')
 const { departmentsAllQueries } = require('./informations/Departments')
 const { citiesQueriesAll } = require('./informations/Cities')
 const { ProductQueries } = require('./product')
+const { featureQueries } = require('./feature')
+// const { featureQueries } = require('./features')
 
 module.exports = {
     ...areasQueries,
@@ -56,4 +58,5 @@ module.exports = {
     ...departmentsAllQueries,
     ...citiesQueriesAll,
     ...ProductQueries,
+    ...featureQueries,
 }

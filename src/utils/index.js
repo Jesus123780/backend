@@ -1,7 +1,7 @@
 const graphqlFields = require('graphql-fields')
 const { Base64 } = require('js-base64')
 
-codeRed = async (model) => {
+codeRed = async model => {
     /** variables necesarias */
     let result = '', error = false
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -11,17 +11,17 @@ codeRed = async (model) => {
         result += characters.charAt(Math.floor(Math.random() * characters.length))
     }
     /** busca si ya existe */
-    const dataUP = await model.findOne({attributes: ['up_id'], where: {up_code: result}}).catch(x = error = true)
+    const dataUP = await model.findOne({ attributes: ['up_id'], where: { up_code: result } }).catch(x = error = true)
     /** verifica si existe */
-    if (!!dataUP)
-        await codeRed()
+    if (dataUP)
+    {await codeRed()}
     else
-        return result
+    {return result}
 }
 
 enCode = value => {
     const v = ((((value * 998161) * 793927) * 562841) * 288413) / 472793
-    return Base64.encode(`${v}`)
+    return Base64.encode(`${ v }`)
 }
 
 deCode = value => {
@@ -45,48 +45,48 @@ linkHasMany = (modelOne, modelTwo, target, foreign) => {
 
 consecutive = value => {
     let consecutive = parseInt(value) +1
-    consecutive = `${consecutive}`
+    consecutive = `${ consecutive }`
     if (consecutive.length === 4)
-        consecutive = `00${consecutive}`
+    {consecutive = `00${ consecutive }`}
     else if (consecutive.length === 5)
-        consecutive = `0${consecutive}`
+    {consecutive = `0${ consecutive }`}
     return consecutive
 }
 
 UpCrNotFind = async (model, newItem, where, condition, updateFind = false) => {
     /** confirma si hay id para actualizar o registrar */
-    if (!!condition) {
-        const data = await model.update(newItem, { where: !!where ? where : { [condition.id]: deCode(condition.value) } })
+    if (condition) {
+        const data = await model.update(newItem, { where: where ? where : { [condition.id]: deCode(condition.value) } })
         if (!!data[0] && !!updateFind)
-            return await model.findOne({ where: !!where ? where : { [condition.id]: deCode(condition.value) } })
+        {return await model.findOne({ where: where ? where : { [condition.id]: deCode(condition.value) } })}
         else
-            return !!where ? where : { [condition.id]: condition.value }
+        {return where ? where : { [condition.id]: condition.value }}
     } else
-        return await model.create(newItem)
+    {return await model.create(newItem)}
 }
 
 UpCrFind = async (model, newItem, where, condition, updateFind = false) => {
     const res = await model.findOne({ where: where ? where : { [condition.id]: deCode(condition.value) } })
     /** confirma si hay id para actualizar o registrar */
-    if (!!res) {
+    if (res) {
         const data = await model.update(newItem, { where: where ? where : { [condition.id]: deCode(condition.value) } })
         return res
     } else
-        return await model.create(newItem)
+    {return await model.create(newItem)}
 }
 
 updateOrCreate = async (model, newItem, where) => {
     /** busca si existe */
     const result = await model.findOne({ where })
     /** confirma si existe para actualizar o registrar */
-    if (!!result) {
+    if (result) {
         const data = await model.update(newItem, { where })
         if (data[0] !== 0)
-            return await model.findOne({ where })
+        {return await model.findOne({ where })}
         else
-            return result
+        {return result}
     } else
-        return await model.create(newItem)
+    {return await model.create(newItem)}
 }
 
 // Busca los campos que coinciden con la base de datos y la query de graphql
@@ -112,7 +112,7 @@ const validationID = (value, typeNull = true) => {
  * @param {Array} filters array a comparar o claves del objeto
  * @return {Object} devuelve un objeto con los datos filtrados
  */
- const filterKeyObject = (data, filters) => {
+const filterKeyObject = (data, filters) => {
     let values = {}
     for (const elem in data) {
         let coincidence = false

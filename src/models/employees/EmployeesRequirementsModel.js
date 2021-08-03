@@ -3,7 +3,7 @@ const connect = require('../database')
 const EmployeesModel = require('../employees/EmployeesModel')
 const RequirementsModel = require('../requirements/RequirementsModel')
 const sequelize = connect()
-const {enCode, validationID} = require('../../utils')
+const { enCode, validationID } = require('../../utils')
 const EmployeesFoldersModel = require('./EmployeesFoldersModel')
 
 const EmployeesRequirementsModel = sequelize.define('employeesrequirements', {

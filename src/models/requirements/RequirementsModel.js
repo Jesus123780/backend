@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const connect = require('../database')
-const AreasModel = require('../featuresProducts/AreasModel')
+const AreasModel = require('../areas/AreasModel')
 const sequelize = connect()
 const { enCode, validationID } = require('../../utils')
 

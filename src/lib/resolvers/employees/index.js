@@ -1,7 +1,7 @@
 'use strict'
 
 const { Op } = require('sequelize')
-const AreasModel = require('../../../models/featuresProducts/AreasModel')
+const AreasModel = require('../../../models/areas/AreasModel')
 const { ApolloError } = require('apollo-server-errors')
 const EmployeesModel = require('../../../models/employees/EmployeesModel')
 const {
