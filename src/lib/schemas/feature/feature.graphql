@@ -15,8 +15,6 @@ input IFeature {
     thpId: ID!
     hpqrQuestion: String
     hpqrState: String
-    hpqrDatCre: String
-    hpqrDatMod: String
 }
 
 # Queries

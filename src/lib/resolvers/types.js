@@ -11,7 +11,7 @@ const { requirementTypes } = require('./requirements')
 const { generalFolderParentsTypes } = require('./generalFolderParents')
 const { pqrQueriesType } = require('./pqr/transporter')
 const { ProductTypes } = require('./product')
-const { FeatureTypes } = require('./feature/featureType')
+const { FeatureTypes } = require('./feature')
 
 module.exports = {
     ...areasTypes,
@@ -28,4 +28,5 @@ module.exports = {
     ...pqrQueriesType,
     ...ProductTypes,
     ...FeatureTypes,
+
 }

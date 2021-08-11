@@ -23,7 +23,7 @@ const Feature = sequelize.define('feature', {
             key: 'thpId'
         },
         get (x) { return enCode(this.getDataValue(x)) },
-        set (x) { this.setDataValue('thpId', validationID(x)) }
+        set(x) { return this.setDataValue('thpId', validationID(x, false))}
     },
     hpqrQuestion: {
         type: Sequelize.STRING(120),

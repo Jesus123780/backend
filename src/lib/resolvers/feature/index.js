@@ -1,6 +1,5 @@
 'use strict'
 const { ApolloError } = require('apollo-server-errors')
-const { decode } = require('js-base64')
 const Feature = require('../../../models/feature/feature')
 const Typefeature = require('../../../models/feature/TypFeature')
 const { getAttributes, deCode } = require('../../../utils')
@@ -23,13 +22,8 @@ const featureQueries = {
 // Mutations
 const createFeatureMutations = {
     createFeature: async (_root, { input }) => {
-        const { thpId, hpqrQuestion } = input
-        console.log(input)
         try {
-            const data = await Typefeature.create({
-                thpId:  thpId ? deCode(thpId) : null,
-                hpqrQuestion
-            })
+            const data = await Feature.create({ ...input, hpqrState: 1 })
             return data
         } catch (e) {
             throw new ApolloError('No ha sido posible procesar su solicitud.', 500, e)

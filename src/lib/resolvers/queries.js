@@ -27,7 +27,7 @@ const { departmentsAllQueries } = require('./informations/Departments')
 const { citiesQueriesAll } = require('./informations/Cities')
 const { ProductQueries } = require('./product')
 const { featureQueries } = require('./feature')
-// const { featureQueries } = require('./features')
+const { featureTypeQueries } = require('./feature/featureType')
 
 module.exports = {
     ...areasQueries,
@@ -59,4 +59,5 @@ module.exports = {
     ...citiesQueriesAll,
     ...ProductQueries,
     ...featureQueries,
+    ...featureTypeQueries,
 }

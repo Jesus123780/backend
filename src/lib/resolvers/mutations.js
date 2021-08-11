@@ -28,6 +28,7 @@ const { informationMutation } = require('./informations')
 const { createRoadMutation } = require('./informations/RoadType')
 const { UpdateProductMutations } = require('./product')
 const { createFeatureMutations } = require('./feature')
+const { createFeatureTypeMutations } = require('./feature/featureType')
 
 module.exports = {
     ...areasMutations,
@@ -63,4 +64,5 @@ module.exports = {
     ...createRoadMutation,
     ...UpdateProductMutations,
     ...createFeatureMutations,
+    ...createFeatureTypeMutations,
 }
