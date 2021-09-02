@@ -22,6 +22,7 @@ input IArea {
 type Query {
     "Consulta todas las áreas"
     areas(umId: ID!, pId: ID, aId: ID): [Area]
+    getAreas: [Area]
 }
 
 # Mutations

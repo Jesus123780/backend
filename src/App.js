@@ -16,6 +16,7 @@ const jwt = require('jsonwebtoken')
 const { ApolloServer } = require('apollo-server-express')
 const resolvers = require('./lib/resolvers')
 const { fileLoader, mergeTypes } = require('merge-graphql-schemas')
+const { ApolloError } = require('apollo-server')
 // const { graphqlUploadExpress } = require('graphql-upload')
 
 // Middleware
@@ -55,6 +56,7 @@ const server = new ApolloServer({
             } catch (error) {
                 console.log(error)
                 console.log('Hola esto es un error del contexto')
+                throw new ApolloError('No ha sido posible procesar su solicitud.', 500)
             }
         }
     },

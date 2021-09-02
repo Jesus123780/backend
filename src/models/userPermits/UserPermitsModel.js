@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const connect = require('../database')
 const sequelize = connect()
-const {enCode, validationID} = require('../../utils')
+const { enCode, validationID } = require('../../utils')
 const SubModulesModel = require('../subModules/SubModulesModel')
 const UsersModel = require('../users/UsersModel')
 
@@ -50,7 +50,7 @@ const UserPermitsModel = sequelize.define('userpermits', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
     }
-},{
+}, {
     timestamps: false,
     hooks: {
         afterBulkCreate: (model, options) => model

@@ -1,0 +1,32 @@
+# types
+type CategoryProduct {
+    caId: ID!
+    cpName: String
+    cpImage: String
+    cpState: Int
+    DatCre: DateTime
+    DatMod: DateTime
+}
+
+# Inputs    
+input ICategoryProduct {
+    caId: ID
+    cpName: String
+    cpImage: String
+    cpState: Int
+}
+
+# Queries
+type Query {
+    "Consulta todos los CategoryProductos"
+    getCategoryProducts: [CategoryProduct]
+    CategoryProductsOne(caId: ID, search: String ): CategoryProduct
+    CategoryProductsAll(caId: ID, search: String, min: Int, max: Int  ): [CategoryProduct]
+}
+
+
+# Mutations
+type Mutation {
+    "Registra un CategoryProducto"
+     updateCategoryProducts(input: ICategoryProduct): CategoryProduct
+}

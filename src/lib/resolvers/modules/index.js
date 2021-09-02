@@ -30,7 +30,7 @@ const moduleQueries = {
                     }
                 ],
                 where: where(col('submodules.smId'), {
-                    [Op.in]: resPermits.map((x) => deCode(x.smId))
+                    [Op.in]: resPermits.map(x => deCode(x.smId))
                 }),
                 order: [['mPriority', 'ASC']]
             })

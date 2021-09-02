@@ -1,38 +1,32 @@
 const { ApolloError } = require('apollo-server-errors')
 const { Op } = require('sequelize')
 const AreasModel = require('../../../models/areas/AreasModel')
+const CategoryProductsModel = require('../../../models/Categories/CategoryProducts')
 const Feature = require('../../../models/feature/feature')
 const CitiesModel = require('../../../models/information/CitiesModel')
 const colorModel = require('../../../models/information/color')
 const CountriesModel = require('../../../models/information/CountriesModel')
 const DepartmentsModel = require('../../../models/information/DepartmentsModel')
-const productModel = require('../../../models/product/product')
 const trademarkModel = require('../../../models/product/trademark')
 const ThirdPartiesModel = require('../../../models/thirdParties/ThirdPartiesModel')
 const { deCode, getAttributes } = require('../../../utils')
 
 // Mutations
-const UpdateProductMutations = {
-    updateProducts: async (_root, { input }) => {
-        const { sizeId, colorId, cId, dId, ctId, pId, pState } = input
+const UpdateCategoriesMutations = {
+    updateCategoryProducts: async (_root, { input }) => {
+        const { caId, cpState } = input
         try {
-            if (!pId) {
-                const data = await productModel.create({
+            if (!caId) {
+                const data = await CategoryProductsModel.create({
                     ...input,
-                    pState: 1,
-                    sTateLogistic: 1,
-                    sizeId: sizeId? deCode(sizeId) : null,
-                    colorId: colorId ? deCode(colorId) : null,
-                    cId:  cId ? deCode(cId) : null,
-                    dId:  dId ? deCode(dId) : null,
-                    ctId: ctId ? deCode(ctId) : null,
+                    cpState: 1,
                 })
                 return data
             }
             else {
-                const isExist = await productModel.findOne({ attributes: ['pId', 'pName', 'pState', 'sTateLogistic'], where: { pId: deCode(pId) } })
+                const isExist = await CategoryProductsModel.findOne({ attributes: ['caId', 'cpName', 'cpState'], where: { caId: deCode(caId) } })
                 if (isExist) {
-                    await productModel.update({ pState: pState === 1 ? 0 : 1 }, { where: { pId: deCode(pId) } })
+                    await CategoryProductsModel.update({ cpState: cpState === 1 ? 0 : 1 }, { where: { caId: deCode(caId) } })
                 }
                 else {
                     throw new ApolloError('No se pudo eliminar el producto debido a un error interno.')
@@ -44,17 +38,17 @@ const UpdateProductMutations = {
     }
 }
 // Queries
-const ProductQueries = {
-    productsOne: async (root, { pId }, context, info) => {
+const CategoriesProductQueries = {
+    CategoryProductsOne: async (root, { caId }, context, info) => {
         try {
-            const attributes = getAttributes(productModel, info)
-            const data = await productModel.findOne({
+            const attributes = getAttributes(CategoryProductsModel, info)
+            const data = await CategoryProductsModel.findOne({
                 attributes,
                 where: {
                     [Op.or]: [
                         {
-                            // ID Productos
-                            pId: pId ? deCode(pId) : { [Op.gt]: 0 },
+                            // ID Categories
+                            caId: caId ? deCode(caId) : { [Op.gt]: 0 },
                         }
                     ]
                 }
@@ -64,101 +58,41 @@ const ProductQueries = {
             const error = new Error('Lo sentimos, ha ocurrido un error interno o No hay ningún producto registrado, Vuelve a intentarlo mas tarde ')
             return error
         }
-    }, productsAll: async (root, args, context, info) => {
+    }, CategoryProductsAll: async (root, args, context, info) => {
         try {
-            const { search, min, max, pId, gender, desc, categories } = args
-            console.log(categories)
+            const { search, min, max, caId } = args
             let whereSearch = {}
             if (search) {
                 whereSearch = {
                     [Op.or]: [
-                        { pName: { [Op.substring]: search.replace(/\s+/g, ' ') } },
-                        { ProPrice: { [Op.substring]: search.replace(/\s+/g, ' ') } },
-                        { ProDescuento: { [Op.substring]: search.replace(/\s+/g, ' ') } },
-                        { ProDelivery: { [Op.substring]: search.replace(/\s+/g, ' ') } }
+                        { cpName: { [Op.substring]: search.replace(/\s+/g, ' ') } },
                     ]
                 }
             }
-            if (gender?.length) {
-                whereSearch = {
-                    ...whereSearch,
-                    ProDelivery: { [Op.in]: gender.map(x => x)
-                    }
-                }
-            }
-            if (desc?.length) {
-                whereSearch = {
-                    ...whereSearch,
-                    ProDescuento: { [Op.in]: desc.map(x => x) }
-                }
-            }
-            //validad que  venga una categoría para hacer el filtro por categorías
-            if (categories?.length) {
-                whereSearch = {
-                    ...whereSearch,
-                    caId: { [Op.in]: categories.map(x => deCode(x)) }
-                }
-            }
-            const attributes = getAttributes(productModel, info)
-            const data = await productModel.findAll({
+            const attributes = getAttributes(CategoryProductsModel, info)
+            const data = await CategoryProductsModel.findAll({
                 attributes,
                 where: {
                     [Op.or]: [
                         {
                             ...whereSearch,
                             // ID Productos
-                            pId: pId ? deCode(pId) : { [Op.gt]: 0 },
-                            pState: { [Op.gt]: 0 }
+                            caId: caId ? deCode(caId) : { [Op.gt]: 0 },
+                            cpState: { [Op.gt]: 0 }
                             // // ID departamento
                             // dId: dId ? deCode(dId) : { [Op.gt]: 0 },
                             // // ID Cuidad
                             // ctId: ctId ? deCode(ctId) : { [Op.gt]: 0 },
                         }
                     ]
-                }, limit: [min || 0, max || 100], order: [['pName', 'ASC']]
+                }, limit: [min || 0, max || 100], order: [['cpName', 'ASC']]
             })
             return data
         } catch (e) {
             const error = new Error('Lo sentimos, ha ocurrido un error interno')
             return error
         }
-    },
-    productsLogis: async (root, args, context, info) => {
-        try {
-            const { search, min, max, pId } = args
-            let whereSearch = {}
-            if (search) {
-                whereSearch = {
-                    [Op.or]: [
-                        { pName: { [Op.substring]: search.replace(/\s+/g, ' ') } },
-                        { ProPrice: { [Op.substring]: search.replace(/\s+/g, ' ') } },
-                        { ProDescuento: { [Op.substring]: search.replace(/\s+/g, ' ') } }
-                    ]
-                }
-            }
-            const attributes = getAttributes(productModel, info)
-            const data = await productModel.findAll({
-                attributes,
-                where: {
-                    [Op.or]: [
-                        {
-                            ...whereSearch,
-                            // ID Productos
-                            pId: pId ? deCode(pId) : { [Op.gt]: 0 },
-                            // // ID departamento
-                            // dId: dId ? deCode(dId) : { [Op.gt]: 0 },
-                            // // ID Cuidad
-                            // ctId: ctId ? deCode(ctId) : { [Op.gt]: 0 },
-                        }
-                    ]
-                }, limit: [min || 0, max || 100], order: [['pName', 'ASC']]
-            })
-            return data
-        } catch (e) {
-            const error = new Error('Lo sentimos, ha ocurrido un error interno')
-            return error
-        }
-    },
+    }
 }
 
 // Types
@@ -168,7 +102,7 @@ const ProductTypes = {
             try {
                 const res = await ThirdPartiesModel.findOne({
                     attributes: [
-                        'tpId',
+                        'tcId',
                         'umId',
                         'tpNumDoc',
                         'tpName',
@@ -177,7 +111,7 @@ const ProductTypes = {
                         'tpEmail',
                         'tpState'
                     ],
-                    where: { tpId: deCode(parent.tpId) }
+                    where: { tcId: deCode(parent.tcId) }
                 })
                 return res
             } catch (error) {
@@ -189,7 +123,7 @@ const ProductTypes = {
                 const attributes = getAttributes(AreasModel, info)
                 const data = await AreasModel.findAll({
                     attributes,
-                    where: { pId: deCode(parent.pId) }
+                    where: { caId: deCode(parent.caId) }
                 })
                 return data
             } catch {
@@ -213,7 +147,7 @@ const ProductTypes = {
                 const attributes = getAttributes(CountriesModel, info)
                 const data = await CountriesModel.findOne({
                     attributes,
-                    where: { cId: deCode(parent.cId) }
+                    where: { caId: deCode(parent.caId) }
                 })
                 return data
             } catch {
@@ -271,8 +205,8 @@ const ProductTypes = {
     }
 }
 module.exports = {
-    ProductQueries,
-    UpdateProductMutations,
+    CategoriesProductQueries,
+    UpdateCategoriesMutations,
     // Types
     ProductTypes,
 }

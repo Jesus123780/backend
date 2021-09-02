@@ -20,9 +20,29 @@ async function login(input) {
         const compare = await bcrypt.compareSync(password, user.password)
         if (!compare) return { success: false, message: 'La contraseña no es correcta.' }
         // Formatear datos de usuario
-        const dataUser = { id: user.id, UName: user.name, uUsername: user.username, uEmail: user.email, uPassword: user.password, uPhoNum: user.uPhoNum, ULocation: user.ULocation, upLat: user.ULocation, upLon: user.upLon, lastName: user.lastName }
+        const dataUser = {
+            id: user.id,
+            UName: user.name,
+            uUsername: user.username,
+            uEmail: user.email,
+            uPassword: user.password,
+            uPhoNum: user.uPhoNum,
+            ULocation: user.ULocation,
+            upLat: user.ULocation, upLon: user.upLon,
+            lastName: user.lastName
+        }
         // Crear token de session
-        const token = jwt.sign({ id: user.id, Uname: user.name, uUsername: user.username, uEmail: user.email, uPhoNum: user.uPhoNum, ULocation: user.ULocation, upLat: user.upLat, upLon: user.upLon, lastName: user.lastName }, process.env.AUTHO_USER_KEY, { expiresIn: '2d' })
+        const token = jwt.sign({
+            id: user.id,
+            Uname: user.name,
+            uUsername: user.username,
+            uEmail: user.email,
+            uPhoNum: user.uPhoNum,
+            ULocation: user.ULocation,
+            upLat: user.upLat,
+            upLon: user.upLon,
+            lastName: user.lastName
+        }, process.env.AUTHO_USER_KEY, { expiresIn: '1d' })
         // login
         return {
             user: dataUser,
@@ -31,7 +51,6 @@ async function login(input) {
             token,
         }
     } catch (error) {
-        console.log(error)
         throw new ApolloError('No ha sido posible procesar su solicitud.', 500)
     }
 }

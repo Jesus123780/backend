@@ -4,9 +4,13 @@ type Product {
     sizeId: ID #Talla
     colorId: ID #Color
     cId: ID #Country
+    caId: ID #Categorías de productos
     dId: ID #Department
     ctId: ID #Cuidad
     tpId: ID #Características
+
+    fId: ID #Características principales
+
     pName: String
     ProPrice: String
     ProDescuento: String
@@ -25,11 +29,13 @@ type Product {
     ProDelivery: Int
     ProVoltaje: String
     pState: Int
+    sTateLogistic: Int
     pDatCre: DateTime
     pDatMod: DateTime
 
     thirdParties: ThirdParties
-    features: [Area]
+    area: [Area]
+    feat: [Feature]
     pais: Country
     city: City
     department: Department
@@ -46,6 +52,10 @@ input InputProduct {
     cId: ID #Country
     dId: ID #Department
     ctId: ID #Cuidad
+
+    caId: ID #Categorías de productos
+
+    fId: ID #Características principales
     pName: String
     ProPrice: String
     ProDescuento: String
@@ -64,6 +74,7 @@ input InputProduct {
     ProDelivery: Int
     ProVoltaje: String
     pState: Int
+    sTateLogistic: Int
     pDatCre: DateTime
     pDatMod: DateTime
 }
@@ -74,8 +85,11 @@ type Query {
     getProducts: [Product]
     products: [Product]
     productsOne(pId: ID, cId: ID, dId: ID, ctId: ID ): Product
-    productsAll(pId: ID, cId: ID, dId: ID, ctId: ID ): [Product]
+    productsAll(pId: ID, cId: ID, dId: ID, ctId: ID, search: String, min: Int, max: Int,  gender: [String]  desc: [String], categories: [ID]  ): [Product]
+    productsLogis(pId: ID, cId: ID, dId: ID, ctId: ID, search: String, min: Int, max: Int  ): [Product]
+    
 }
+
 
 # Mutations
 type Mutation {

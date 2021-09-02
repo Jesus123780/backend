@@ -10,7 +10,6 @@ const awsGetFiles = async ({ accessKeyId, secretAccessKey, Bucket, Key }) => {
             accessKeyId,
             secretAccessKey
         })
-        
     } catch (err) {
         error = err
     }

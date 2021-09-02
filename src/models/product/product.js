@@ -1,12 +1,14 @@
 const Sequelize = require('sequelize')
 const connect = require('../database')
 const sequelize = connect()
-const { enCode } = require('../../utils')
+const { enCode, validationID } = require('../../utils')
 const SizeModel = require('../information/size')
 const colorModel = require('../information/color')
 const CountriesModel = require('../information/CountriesModel')
 const DepartmentsModel = require('../information/DepartmentsModel')
 const CitiesModel = require('../information/CitiesModel')
+const Feature = require('../feature/feature')
+const CategoryProductsModel = require('../Categories/CategoryProducts')
 
 // sequelize.sync()
 
@@ -75,6 +77,30 @@ const productModel = sequelize.define('product', {
         },
         get(x) { return enCode(this.getDataValue(x)) }
     },
+    fId: {
+        type: Sequelize.INTEGER,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+            model: Feature,
+            key: 'fId'
+        },
+        get(x) { return enCode(this.getDataValue(x)) },
+        set(x) { this.setDataValue('fId', validationID(x, false)) }
+    },
+    caId: {
+        type: Sequelize.INTEGER,
+        // allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+            model: CategoryProductsModel,
+            key: 'caId'
+        },
+        // unique: true,
+        get(x) {return enCode(this.getDataValue(x))},
+        set(x) {this.setDataValue('caId', validationID(x, false))}
+    },
     pName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -96,6 +122,10 @@ const productModel = sequelize.define('product', {
         allowNull: true
     },
     pState: {
+        type: Sequelize.TINYINT,
+        allowNull: false
+    },
+    sTateLogistic: {
         type: Sequelize.TINYINT,
         allowNull: false
     },

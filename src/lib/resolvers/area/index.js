@@ -34,6 +34,15 @@ const areasQueries = {
         }
     }
 }
+const getAreasQueries = {
+    getAreas: async (_root, context, info) => {
+        // const attributes = getAttributes(AreasModel, info)
+        const data = await AreasModel.findAll({
+            attributes: ['aId', 'aName']
+        })
+        return data
+    }
+}
 
 // Mutations
 const areasMutations = {
@@ -76,5 +85,6 @@ const areasTypes = {
 module.exports = {
     areasQueries,
     areasMutations,
-    areasTypes
+    areasTypes,
+    getAreasQueries
 }

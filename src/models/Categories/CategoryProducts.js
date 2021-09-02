@@ -3,45 +3,40 @@ const connect = require('../database')
 const sequelize = connect()
 const { enCode } = require('../../utils')
 
-const ModulesModel = sequelize.define('modules', {
-    mId: {
+// sequelize.sync()
+
+const CategoryProductsModel = sequelize.define('categorieproduct', {
+    caId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        get(x) {return enCode(this.getDataValue(x))},
+        get(x) {return enCode(this.getDataValue(x))}
     },
-    mName: {
-        type: Sequelize.STRING(100),
+    cpName: {
+        type: Sequelize.STRING(200),
         allowNull: false
     },
-    mPath: {
-        type: Sequelize.STRING(50),
+    cpImage: {
+        type: Sequelize.STRING,
+        trim: true,
+        allowNull: true
+    },
+    cpState: {
+        type: Sequelize.SMALLINT,
         allowNull: false
     },
-    mPriority: {
-        type: Sequelize.TINYINT,
-        allowNull: false
-    },
-    mIcon: {
-        type: Sequelize.TINYINT,
-        allowNull: false
-    },
-    mState: {
-        type: Sequelize.TINYINT,
-        allowNull: false
-    },
-    mDatCre: {
+    DatCre: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
     },
-    mDatMod: {
+    DatMod: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
     }
-},{
+}, {
     timestamps: false,
 })
 
-module.exports = ModulesModel
+module.exports = CategoryProductsModel

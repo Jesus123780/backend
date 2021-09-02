@@ -4,7 +4,7 @@ const { employeeRequirementsQueries } = require('./employeeRequirements')
 const { employeesQueries } = require('./employees')
 const { employeeFoldersQueries } = require('./employeeFolders')
 const { employeeFolderParentsQueries } = require('./employeeFolderParents')
-const { areasQueries } = require('./area')
+const { areasQueries, getAreasQueries } = require('./area')
 const { userQueries } = require('./users')
 const { moduleQueries } = require('./modules')
 const { subModuleQueries } = require('./submodules')
@@ -28,6 +28,7 @@ const { citiesQueriesAll } = require('./informations/Cities')
 const { ProductQueries } = require('./product')
 const { featureQueries } = require('./feature')
 const { featureTypeQueries } = require('./feature/featureType')
+const { CategoriesProductQueries } = require('./Category')
 
 module.exports = {
     ...areasQueries,
@@ -59,5 +60,7 @@ module.exports = {
     ...citiesQueriesAll,
     ...ProductQueries,
     ...featureQueries,
+    ...getAreasQueries,
     ...featureTypeQueries,
+    ...CategoriesProductQueries,
 }
