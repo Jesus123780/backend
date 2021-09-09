@@ -29,6 +29,7 @@ const { ProductQueries } = require('./product')
 const { featureQueries } = require('./feature')
 const { featureTypeQueries } = require('./feature/featureType')
 const { CategoriesProductQueries } = require('./Category')
+const { userMasterQueries } = require('./userMaster')
 
 module.exports = {
     ...areasQueries,
@@ -63,4 +64,6 @@ module.exports = {
     ...getAreasQueries,
     ...featureTypeQueries,
     ...CategoriesProductQueries,
+    // Usuario master
+    ...userMasterQueries
 }

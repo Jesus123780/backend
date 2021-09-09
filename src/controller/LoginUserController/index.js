@@ -11,10 +11,11 @@ const deCode = require('../../utils');
  * @return {Object} GQL response
  */
 async function login(input) {
+    console.log(input)
     const { email, password } = input;
     try {
         // Buscar al usuario
-        const user = await User.findOne({ attributes: ['id', 'name', 'username', 'email', 'password', 'uPhoNum', 'ULocation', 'upLat', 'upLon', 'lastName'], where: { email } })
+        const user = await User.findOne({ attributes: ['id', 'name', 'IdM', 'username', 'email', 'password', 'uPhoNum', 'ULocation', 'upLat', 'upLon', 'lastName'], where: { email } })
         if (!user) return { success: false, message: `El email '${ email }' no se encuentra registrado.` }
         // Comparar contraseña
         const compare = await bcrypt.compareSync(password, user.password)

@@ -30,6 +30,7 @@ const { UpdateProductMutations } = require('./product')
 const { createFeatureMutations } = require('./feature')
 const { createFeatureTypeMutations } = require('./feature/featureType')
 const { UpdateCategoriesMutations } = require('./Category')
+const { RegisterUserMaster } = require('./userMaster')
 
 module.exports = {
     ...areasMutations,
@@ -67,4 +68,5 @@ module.exports = {
     ...createFeatureMutations,
     ...createFeatureTypeMutations,
     ...UpdateCategoriesMutations,
+    ...RegisterUserMaster,
 }

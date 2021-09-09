@@ -1,9 +1,9 @@
 'use strict'
 
-const { Op } = require("sequelize")
+const { Op } = require('sequelize')
 const { ApolloError } = require('apollo-server')
-const { getAttributes } = require("../../../utils")
-const StorageTypesModel = require("../../../models/Storage/StorageTypesModel")
+const { getAttributes } = require('../../../utils')
+const StorageTypesModel = require('../../../models/Storage/StorageTypesModel')
 
 // Queries
 const storageTypesQueries = {

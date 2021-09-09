@@ -1,10 +1,10 @@
 'use strict'
 
-const { Op } = require("sequelize")
+const { Op } = require('sequelize')
 const { ApolloError } = require('apollo-server')
-const StorageModel = require("../../../models/Storage/StorageModel")
-const { getAttributes, deCode } = require("../../../utils")
-const StorageTypesModel = require("../../../models/Storage/StorageTypesModel")
+const StorageModel = require('../../../models/Storage/StorageModel')
+const { getAttributes, deCode } = require('../../../utils')
+const StorageTypesModel = require('../../../models/Storage/StorageTypesModel')
 
 // Queries
 const storageQueries = {
@@ -29,11 +29,10 @@ const storageMutations = {
                 await StorageModel.update({ sName, sRegion, sState, stId, umId }, { where: { sId: deCode(sId) } })
                 data = { sId }
             }
-            else
-                data = await StorageModel.create({ sState: 2, ...input })
+            else {data = await StorageModel.create({ sState: 2, ...input })}
 
             return { sState: 1, ...input, sId: data.sId }
-            
+
         } catch (e) {
             return new ApolloError('Lo sentimos, ha ocurrido un error interno.', 400)
         }
@@ -41,15 +40,15 @@ const storageMutations = {
     changeStateStorage: async(_root, { sState, sId, umId }) => {
         try {
             console.log(sState, sId, umId)
-            if(sState === '1'){
+            if (sState === '1'){
                 const storageActiveNow = await StorageModel.findOne({ attributes: ['sId', 'sState'], where: { sState: 1, umId: deCode(umId) } })
-                !!storageActiveNow && await StorageModel.update({ sState: 2 }, { where: { sId: deCode(storageActiveNow.sId) }})
+                !!storageActiveNow && await StorageModel.update({ sState: 2 }, { where: { sId: deCode(storageActiveNow.sId) } })
             }
-            await StorageModel.update({ sState }, { where: { sId: deCode(sId) }})
-            const res = await StorageModel.findOne({ attributes: ['sName', 'sRegion', 'stId' ] }, { where: { sId: deCode(sId) }})
-            
+            await StorageModel.update({ sState }, { where: { sId: deCode(sId) } })
+            const res = await StorageModel.findOne({ attributes: ['sName', 'sRegion', 'stId' ] }, { where: { sId: deCode(sId) } })
+
             return { sState, sId, umId, sName: res.sName, sRegion: res.sRegion, stId: res.stId }
-        }  catch (e) {
+        } catch (e) {
             throw new ApolloError('Lo sentimos, ha ocurrido un error interno.', 400)
         }
     }
@@ -60,15 +59,14 @@ const storageTypes = {
     Storage: {
         storageType: async ({ stId }) => {
             try {
-                const data = await StorageTypesModel.findOne({ attributes: ['stName', 'stId'],  where: { stId: deCode(stId) } })
+                const data = await StorageTypesModel.findOne({ attributes: ['stName', 'stId'], where: { stId: deCode(stId) } })
                 return data
-            } catch(e){
+            } catch (e){
                 throw new ApolloError('Lo sentimos, ha ocurrido un error interno.', 400)
             }
         }
     }
 }
-
 
 module.exports = {
     storageQueries,

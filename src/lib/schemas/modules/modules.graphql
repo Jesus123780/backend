@@ -2,9 +2,9 @@
 type Module {
     mId: ID!
     mName: String
-    mPath: String!
+    mPath: String
     mPriority: Int
-    mIcon: String!
+    mIcon: String
     mState: Int
     mDatCre: DateTime
     mDatMod: DateTime
@@ -13,10 +13,10 @@ type Module {
 
 # Inputs
 input IModule {
-    mName: String!
-    mPath: String!
-    mPriority: Int!
-    mIcon: String!
+    mName: String
+    mPath: String
+    mPriority: Int
+    mIcon: String
     mState: Int
 }
 input IQModule {
@@ -28,6 +28,8 @@ input IQModule {
 type Query {
     "Consulta todos los módulos"
     modules(input: IQModule!): [Module]
+    "Consulta todos los módulos"
+    moduleSinPermits: [Module]
 }
 
 # Mutations

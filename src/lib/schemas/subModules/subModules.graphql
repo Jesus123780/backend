@@ -22,7 +22,7 @@ input ISubModule {
 
 # Queries
 type Query {
-    "Consulta todos los módulos"
+    "Consulta todos los sub-modulos"
     subModules: [SubModule]
 }
 

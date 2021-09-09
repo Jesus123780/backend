@@ -1,10 +1,11 @@
 const Sequelize = require('sequelize')
 const connect = require('../database')
 const sequelize = connect()
-const { enCode } = require('../../utils')
+const { enCode, validationID } = require('../../utils')
 const CitiesModel = require('../information/CitiesModel')
 const DepartmentsModel = require('../information/DepartmentsModel')
 const CountriesModel = require('../information/CountriesModel')
+const UserMasters = require('../userMaster/userMasterModel')
 
 // sequelize.sync()
 
@@ -15,7 +16,18 @@ const Users = sequelize.define('users', {
         autoIncrement: true,
         get (x) { return enCode(this.getDataValue(x)) }
     },
-
+    IdM: {
+        type: Sequelize.INTEGER,
+        // allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+            model: UserMasters,
+            key: 'IdM'
+        },
+        get(x) {return enCode(this.getDataValue(x))},
+        set(x) {this.setDataValue('IdM', validationID(x, false))}
+    },
     name: {
         type: Sequelize.STRING,
         require: true
@@ -93,7 +105,6 @@ const Users = sequelize.define('users', {
         },
         get (x) { return this.getDataValue(x) ? enCode(this.getDataValue(x)) : null }
     },
-
     siteWeb: {
         type: Sequelize.STRING,
         trim: true

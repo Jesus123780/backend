@@ -115,7 +115,7 @@ const ProductQueries = {
                             // ctId: ctId ? deCode(ctId) : { [Op.gt]: 0 },
                         }
                     ]
-                }, limit: [min || 0, max || 100], order: [['pName', 'ASC']]
+                }, limit: [min || 0, max || 100], order: [['pName', 'DESC']]
             })
             return data
         } catch (e) {

@@ -1,39 +1,92 @@
-# types
+# Types
 type User {
-    uId: ID!
-    umId: ID!
-    uName: String!
-    uLasNam: String
-    uPhone: String
-    uEmail: String!
-    uPassword: String
-    uToken: String
-    uState: Int
-    uDatCre: DateTime
-    uDatMod: DateTime
+  id: ID
+  name: ID
+  username: String
+  lastName: String
+  email: String
+  siteWeb: String
+  description: String
+  uPhoNum: String
+  upLat: String
+  upLon: String
+  password: String
+  avatar: String
+  createAt: String
 }
+# Token
+type Token {
+  token: String
+}
+# Upload Image
+type UpdateAvatar {
+  status: Boolean,
+  urlAvatar: String
+}
+
+# types UserMaster
 type UserMaster {
-    umId: ID!
-    umIdAWS: ID!
+    IdM: ID!
+    umSeCredential: ID!
     umDatCre: DateTime
     umDatMod: DateTime
     user: User
 }
 
-# Input
-input IUser {
-    uId: ID
-    umId: ID!
-    uName: String!
-    uLasNam: String
-    uPhone: String
-    uEmail: String!
-    uPassword: String
-    uToken: String
+# Inputs
+input UserInput {
+  name: String!
+  username: String!
+  lastName: String
+  email: String
+  siteWeb: String
+  description: String
+  uPhoNum: String
+  upLat: String
+  upLon: String
+  password: String
+  avatar: String
+  createAt: String
+}
+# Input master
+input UserInputMaster {
+  name: String!
+  username: String!
+  lastName: String
+  email: String
+  siteWeb: String
+  description: String
+  uPhoNum: String
+  upLat: String
+  upLon: String
+  password: String
+  avatar: String
+  createAt: String
+}
+input LoginInput {
+  email: String!
+  password: String!
+}
+input UserUpdateInput {
+  name: String 
+  email: String 
+  currentPassword: String 
+  newPassword: String 
+  siteWeb: String 
+  description: String 
+  uPhoNum: String
+}
+input UserRecoverAccount {
+  token: String 
 }
 
 # Queries
 type Query {
+    "Consulta todos los usuarios Registrados"
+    getUser(id: ID, username: String, name: String): User 
+    search(search: String, min: Int, max: Int ): [User] 
+    "Recibe para  restaurar contraseña"
+    RecoverPass(RecoverPass: String ): [Token] 
     "Consulta todos los usuarios maestros"
     user(id: ID!, state: String): User
     "Inicio de sesión"
@@ -41,15 +94,30 @@ type Query {
     "Consulta un usuario maestro"
     users(id: ID): [User]
     "Consulta un usuario estandar"
-    userMaster(umIdAWS: ID): UserMaster
+    userMaster(umSeCredential: ID): UserMaster
+    "Consulta un UserMaster"
+    getUserMaster(umSeCredential: ID): UserMaster
+
 }
+
+
 
 # Mutations
 type Mutation {
-    "Registra un usuario"
-    createUser(input: IUser): User
+    # Usuarios
+    "Registra un Usuario estandar"
+    register(input: UserInput): User
+    login(input: LoginInput): Token
+    UpdateAvatar(file: Upload): UpdateAvatar
+    UpdateUser(input: UserUpdateInput) : String
+    RecoverPass(input: UserRecoverAccount) : String
+    createUser(input: UserInput): User
+    #Master
     "Registra un usuario maestro"
-    createUserMaster(umIdAWS: ID!, input: IUser!): UserMaster 
+    createUserMaster(input: UserInputMaster): User 
     "Elimina o cambia de estado"
-    changeUserState(state:String!, uId: ID!): User
+    changeUserState( state:String!, uId: ID!): User
+    # Tiendas
+    # Repartidores
+
 }

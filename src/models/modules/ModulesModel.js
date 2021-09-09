@@ -40,7 +40,7 @@ const ModulesModel = sequelize.define('modules', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
     }
-},{
+}, {
     timestamps: false,
 })
 

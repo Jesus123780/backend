@@ -41,7 +41,17 @@ const moduleQueries = {
             )
             return error
         }
-    }
+    },
+    moduleSinPermits: async (_root, args, context, info) => {
+        try {
+            const attributes = getAttributes(ModulesModel, info)
+            const data = ModulesModel.findAll({ attributes })
+            return data
+        } catch (e) {
+            const error = new Error('Lo sentimos, ha ocurrido un error interno')
+            return error
+        }
+    },
 }
 
 // Mutations

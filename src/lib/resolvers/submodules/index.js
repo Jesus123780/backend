@@ -1,8 +1,9 @@
 'use strict'
 
-const { ApolloError } = require("apollo-server")
-const SubModulesModel = require("../../../models/subModules/SubModulesModel")
-const UserPermitsModel = require("../../../models/userPermits/UserPermitsModel")
+const { ApolloError } = require('apollo-server')
+const SubModulesModel = require('../../../models/subModules/SubModulesModel')
+const UserPermitsModel = require('../../../models/userPermits/UserPermitsModel')
+const { getAttributes } = require('../../../utils')
 
 // Queries
 const subModuleQueries = {
@@ -31,13 +32,13 @@ const subModuleMutations = {
     }
 }
 
-// Types 
+// Types
 const subModuleTypes = {
     SubModule: {
         userPermits: async ({ smId }, _args, _context, info) => {
             const { upState, uId } = info?.variableValues?.data || {}
             try {
-                const data = await UserPermitsModel.findAll({ attributes: ['upId', 'uId', 'smId', 'upState'], where: { smId: deCode(smId), upState: upState, uId: deCode(uId) } })
+                const data = await UserPermitsModel.findAll({ attributes: ['upId', 'uId', 'smId', 'upState'], where: { smId: deCode(smId), upState, uId: decode(uId) } })
                 return data
             } catch (e) {
                 const error = new ApolloError('Lo sentimos, ha ocurrido un error interno', 400)
