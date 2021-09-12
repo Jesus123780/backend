@@ -22,6 +22,7 @@ const userPermitsQueries = {
 // Mutations
 const userPermitsMutations = {
     createUserPermits: async (_, { input }) => {
+        console.log(input)
         try {
             const { uId, smData } = input
             const dataValues = smData?.map(x => ({ uId, upState: x.upState ? x.upState : (x.upState === 0 ? 0 : 1), ...x }))
@@ -40,11 +41,11 @@ const userPermitsMutations = {
 
             return res
         } catch (e) {
-            await UsersModel.destroy({
-                where: { uId: input.uId }
-            })
+            // await UsersModel.destroy({
+            //     where: { uId: input.uId }
+            // })
             const error = new Error('Lo sentimos, ha ocurrido un error interno')
-            return e
+            return error
         }
     }
 }

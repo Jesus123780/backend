@@ -3,7 +3,7 @@ const connect = require('../database')
 const sequelize = connect()
 const { enCode, validationID } = require('../../utils')
 const SubModulesModel = require('../subModules/SubModulesModel')
-const UsersModel = require('../users/UsersModel')
+const Users = require('../UsersLogin/Users')
 
 const UserPermitsModel = sequelize.define('userpermits', {
     upId: {
@@ -12,17 +12,17 @@ const UserPermitsModel = sequelize.define('userpermits', {
         autoIncrement: true,
         get(x) {return enCode(this.getDataValue(x))},
     },
-    uId: {
+    id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
-            model: UsersModel,
-            key: 'uId'
+            model: Users,
+            key: 'id'
         },
         get(x) {return enCode(this.getDataValue(x))},
-        set(x) {this.setDataValue('uId', validationID(x, false))}
+        set(x) {this.setDataValue('id', validationID(x, false))}
     },
     smId: {
         type: Sequelize.INTEGER,

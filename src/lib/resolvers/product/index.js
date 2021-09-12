@@ -13,7 +13,10 @@ const { deCode, getAttributes } = require('../../../utils')
 
 // Mutations
 const UpdateProductMutations = {
-    updateProducts: async (_root, { input }) => {
+    updateProducts: async (_root, args, { input }) => {
+        // const dataValues = input.cate?.map(x => console.log(x))
+        // const dataUpdates = dataValues?.filter(x => x.upId)
+        console.log(args)
         const { sizeId, colorId, cId, dId, ctId, pId, pState } = input
         try {
             if (!pId) {
@@ -41,6 +44,18 @@ const UpdateProductMutations = {
         } catch (e) {
             throw new ApolloError('No ha sido posible procesar su solicitud.', 500, e)
         }
+    },
+    // Elimina el producto despues de que el estado pState pasa a ser 0
+    deleteProducts: async (_root, { input }) => {
+        const { pId } = input
+        const isExist = await productModel.findOne({ attributes: ['pId', 'pName', 'pState'], where: { pId: deCode(pId) } })
+        if (isExist) {
+            await productModel.destroy({
+                where: { pId: deCode(pId) }
+            })
+        } else {
+            throw new ApolloError('El producto no existe, No ha sido posible procesar su solicitud.')
+        }
     }
 }
 // Queries
@@ -61,13 +76,12 @@ const ProductQueries = {
             })
             return data
         } catch (e) {
-            const error = new Error('Lo sentimos, ha ocurrido un error interno o No hay ningún producto registrado, Vuelve a intentarlo mas tarde ')
+            const error = new Error('Lo sentimos, ha ocurrido un error interno o el producto no esta  registrado, Vuelve a intentarlo mas tarde.')
             return error
         }
     }, productsAll: async (root, args, context, info) => {
         try {
             const { search, min, max, pId, gender, desc, categories } = args
-            console.log(categories)
             let whereSearch = {}
             if (search) {
                 whereSearch = {
@@ -145,6 +159,7 @@ const ProductQueries = {
                             ...whereSearch,
                             // ID Productos
                             pId: pId ? deCode(pId) : { [Op.gt]: 0 },
+                            pState: 0
                             // // ID departamento
                             // dId: dId ? deCode(dId) : { [Op.gt]: 0 },
                             // // ID Cuidad

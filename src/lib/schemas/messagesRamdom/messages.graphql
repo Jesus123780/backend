@@ -1,0 +1,18 @@
+  type MessageRandom {
+    id: ID!
+    user: String!
+    content: String!
+    hour: String
+  }
+
+  type Query {
+    messages: [MessageRandom!]
+  }
+
+  type Mutation {
+    postMessage(user: String!, content: String!, hour: String): ID!
+  }
+
+  type Subscription {
+    messages: [MessageRandom!]
+  }

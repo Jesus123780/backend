@@ -1,0 +1,22 @@
+# Types
+type Message {
+    uuid: String!
+    content: String!
+    from: String!
+    to: String!
+    aDatCre: String
+}
+# Queries
+type Query {
+    "Consulta todos los mensajes"
+    getMessages(from: String!): [Message]!
+}
+
+# Mutations
+type Mutation {
+    "Registra un mensaje    "
+    sendMessage(to: String!, content: String!): Message
+}
+type Subscription {
+    newMessage: Message!
+}

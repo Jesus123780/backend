@@ -32,7 +32,6 @@ type Product {
     sTateLogistic: Int
     pDatCre: DateTime
     pDatMod: DateTime
-
     thirdParties: ThirdParties
     area: [Area]
     feat: [Feature]
@@ -42,6 +41,13 @@ type Product {
     # Marca
     mark: Trademark
     color: Color
+}
+# Inputs
+input ICategories {
+    caId: ID
+    cpName: String
+    cpImage: String
+    cpState: Int
 }
 
 # Inputs    
@@ -54,7 +60,6 @@ input InputProduct {
     ctId: ID #Cuidad
 
     caId: ID #Categorías de productos
-
     fId: ID #Características principales
     pName: String
     ProPrice: String
@@ -78,6 +83,10 @@ input InputProduct {
     pDatCre: DateTime
     pDatMod: DateTime
 }
+# Input delete products
+input IDeleteProduct {
+    pId: ID
+}
 
 # Queries
 type Query {
@@ -94,5 +103,6 @@ type Query {
 # Mutations
 type Mutation {
     "Registra un producto"
-     updateProducts(input: InputProduct): Product
+     updateProducts(input: InputProduct, updateCategories: [ICategoryProduct]): [Product]
+     deleteProducts(input: IDeleteProduct): Product
 }

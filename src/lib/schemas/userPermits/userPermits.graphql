@@ -1,7 +1,7 @@
 # Types
 type UserPermits {
     upId: ID!
-    uId: ID!
+    id: ID!
     smId: ID!
     upState: Int
     upDatCre: DateTime
@@ -15,7 +15,7 @@ input ITUserPermits {
     upState: Int
 }
 input IUserPermits {
-    uId: ID!
+    id: ID!
     smData: [ITUserPermits]!
 }
 

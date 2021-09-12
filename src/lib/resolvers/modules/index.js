@@ -37,7 +37,7 @@ const moduleQueries = {
             return data
         } catch (e) {
             const error = new ApolloError(
-                'Lo sentimos, ha ocurrido un error interno'
+                'Lo sentimos, ha ocurrido un error interno weon'
             )
             return error
         }

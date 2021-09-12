@@ -3,27 +3,38 @@ const connect = require('../database')
 const sequelize = connect()
 const { enCode } = require('../../utils')
 
-const PermitUsersModel = sequelize.define('permitUsers', {
-    puId: {
+// sequelize.sync()
+
+const MessagesModel = sequelize.define('messages', {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        get(x) {return enCode(this.getDataValue(x))},
+        get(x) { return enCode(this.getDataValue(x)) }
     },
-    puName: {
-        type: Sequelize.STRING(100),
+    content: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    puState: {
-        type: Sequelize.TINYINT,
+    uuid: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false
     },
-    puDatCre: {
+    from: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    to: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    aDatCre: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
     },
-    puDatMod: {
+    aDatMod: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
@@ -32,4 +43,4 @@ const PermitUsersModel = sequelize.define('permitUsers', {
     timestamps: false,
 })
 
-module.exports = PermitUsersModel
+module.exports = MessagesModel

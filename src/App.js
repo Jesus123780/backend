@@ -24,8 +24,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 // app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
-// app.use(morgan('dev'))
-app.use(cors())
 // Configurar cabeceras y cors
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')

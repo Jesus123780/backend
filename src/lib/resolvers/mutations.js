@@ -31,6 +31,8 @@ const { createFeatureMutations } = require('./feature')
 const { createFeatureTypeMutations } = require('./feature/featureType')
 const { UpdateCategoriesMutations } = require('./Category')
 const { RegisterUserMaster } = require('./userMaster')
+const { MessagesMutations } = require('./Messages')
+const { PostMessagesMutation } = require('./messagesRamdom')
 
 module.exports = {
     ...areasMutations,
@@ -69,4 +71,6 @@ module.exports = {
     ...createFeatureTypeMutations,
     ...UpdateCategoriesMutations,
     ...RegisterUserMaster,
+    ...MessagesMutations,
+    ...PostMessagesMutation,
 }

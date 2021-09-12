@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const connect = require('../database')
 const sequelize = connect()
-const { enCode, validationID } = require('../../utils')
+const { enCode, validationID, validations } = require('../../utils')
 const SizeModel = require('../information/size')
 const colorModel = require('../information/color')
 const CountriesModel = require('../information/CountriesModel')
@@ -90,17 +90,25 @@ const productModel = sequelize.define('product', {
     },
     caId: {
         type: Sequelize.INTEGER,
-        // allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
             model: CategoryProductsModel,
             key: 'caId'
         },
-        // unique: true,
         get(x) {return enCode(this.getDataValue(x))},
         set(x) {this.setDataValue('caId', validationID(x, false))}
     },
+    // poPriority: {
+    //     type: Sequelize.SMALLINT,
+    //     allowNull: false,
+    //     defaultValue: 1,
+    //     validate: {
+    //         isValidate (value) {
+    //             validations(value, false, false, 0, 0, false, true)
+    //         }
+    //     }
+    // },
     pName: {
         type: Sequelize.STRING,
         allowNull: false,

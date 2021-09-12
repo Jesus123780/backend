@@ -49,7 +49,7 @@ const SubModulesModel = sequelize.define('submodules', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
     }
-},{
+}, {
     timestamps: false,
 })
 

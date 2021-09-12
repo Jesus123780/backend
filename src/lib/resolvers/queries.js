@@ -30,6 +30,8 @@ const { featureQueries } = require('./feature')
 const { featureTypeQueries } = require('./feature/featureType')
 const { CategoriesProductQueries } = require('./Category')
 const { userMasterQueries } = require('./userMaster')
+const { MessagesQueries } = require('./Messages')
+const { messagesQuery } = require('./messagesRamdom')
 
 module.exports = {
     ...areasQueries,
@@ -65,5 +67,9 @@ module.exports = {
     ...featureTypeQueries,
     ...CategoriesProductQueries,
     // Usuario master
-    ...userMasterQueries
+    ...userMasterQueries,
+    // Mensajes
+    ...MessagesQueries,
+    // MensajesRamdom
+    ...messagesQuery
 }

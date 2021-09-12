@@ -13,6 +13,7 @@ type User {
   password: String
   avatar: String
   createAt: String
+  latestMessage: Message
 }
 # Token
 type Token {
@@ -84,6 +85,7 @@ input UserRecoverAccount {
 type Query {
     "Consulta todos los usuarios Registrados"
     getUser(id: ID, username: String, name: String): User 
+    getAllUser(id: ID, search: String, min: Int, max: Int,): [User] 
     search(search: String, min: Int, max: Int ): [User] 
     "Recibe para  restaurar contraseña"
     RecoverPass(RecoverPass: String ): [Token] 
