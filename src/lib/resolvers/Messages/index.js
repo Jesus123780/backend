@@ -21,7 +21,7 @@ const MessagesQueries = {
                 },
                 order: [['aDatCre', 'ASC']]
             })
-            return messages
+            return messages;
         } catch (e) {
             return e
         }

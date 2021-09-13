@@ -1,0 +1,21 @@
+# Types
+type Reaction {
+    uuid: String!
+    content: String!
+    createAt: String!
+    Message: Message!
+    User: User!
+}
+
+# Queries
+# type Query {
+#     "Consulta todas las áreas"
+#     areas(umId: ID!, pId: ID, aId: ID): [Area]
+#     getAreas: [Area]
+# }
+
+# Mutations
+type Mutation {
+    "React To Message"
+    reactToMessage(uuid: String!, content: String): Reaction!
+}

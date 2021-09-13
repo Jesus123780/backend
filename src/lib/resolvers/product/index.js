@@ -16,7 +16,6 @@ const UpdateProductMutations = {
     updateProducts: async (_root, args, { input }) => {
         // const dataValues = input.cate?.map(x => console.log(x))
         // const dataUpdates = dataValues?.filter(x => x.upId)
-        console.log(args)
         const { sizeId, colorId, cId, dId, ctId, pId, pState } = input
         try {
             if (!pId) {

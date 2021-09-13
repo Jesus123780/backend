@@ -33,6 +33,7 @@ const { UpdateCategoriesMutations } = require('./Category')
 const { RegisterUserMaster } = require('./userMaster')
 const { MessagesMutations } = require('./Messages')
 const { PostMessagesMutation } = require('./messagesRamdom')
+const { reactionMutations } = require('./ReactToMessages')
 
 module.exports = {
     ...areasMutations,
@@ -73,4 +74,5 @@ module.exports = {
     ...RegisterUserMaster,
     ...MessagesMutations,
     ...PostMessagesMutation,
+    ...reactionMutations,
 }
