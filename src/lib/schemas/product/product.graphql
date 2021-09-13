@@ -103,6 +103,7 @@ type Query {
 # Mutations
 type Mutation {
     "Registra un producto"
-     updateProducts(input: InputProduct, updateCategories: [ICategoryProduct]): [Product]
+     updateProducts(input: InputProduct): Product
+    "Borra un producto"
      deleteProducts(input: IDeleteProduct): Product
 }

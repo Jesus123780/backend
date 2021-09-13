@@ -1,0 +1,11 @@
+# Mutations
+type Query {
+    "Consulta si sigo a ese usuario"
+    isFollow(username: String!): Boolean
+}
+# Mutations
+type Mutation {
+    "Registra un seguidor"
+    followUser(username: String!): Boolean
+    unFollow(username: String!): Boolean
+}

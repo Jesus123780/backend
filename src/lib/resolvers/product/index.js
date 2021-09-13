@@ -12,10 +12,9 @@ const ThirdPartiesModel = require('../../../models/thirdParties/ThirdPartiesMode
 const { deCode, getAttributes } = require('../../../utils')
 
 // Mutations
+/** */
 const UpdateProductMutations = {
-    updateProducts: async (_root, args, { input }) => {
-        // const dataValues = input.cate?.map(x => console.log(x))
-        // const dataUpdates = dataValues?.filter(x => x.upId)
+    updateProducts: async (_root, { input }) => {
         const { sizeId, colorId, cId, dId, ctId, pId, pState } = input
         try {
             if (!pId) {

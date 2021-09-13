@@ -31,7 +31,6 @@ const reactionMutations = {
                 await reaction.save()
             } else {
                 // Si la reaction no existe creala
-                console.log('message.id')
                 reaction = await ReactionsModel.create({
                     messageId: message.id,
                     userId: ctx.User.id,

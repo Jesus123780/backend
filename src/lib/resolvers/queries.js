@@ -32,6 +32,7 @@ const { CategoriesProductQueries } = require('./Category')
 const { userMasterQueries } = require('./userMaster')
 const { MessagesQueries } = require('./Messages')
 const { messagesQuery } = require('./messagesRamdom')
+const { followQuery } = require('./Follow')
 
 module.exports = {
     ...areasQueries,
@@ -71,5 +72,6 @@ module.exports = {
     // Mensajes
     ...MessagesQueries,
     // MensajesRamdom
-    ...messagesQuery
+    ...messagesQuery,
+    ...followQuery
 }
