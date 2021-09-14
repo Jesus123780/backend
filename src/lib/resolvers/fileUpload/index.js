@@ -31,7 +31,6 @@ const fileUploadTypes = {
 //Mutations
 const fileUploadMutations = {
     uploadFile: async (_, { file, umId, pnNum, folder }) => {
-        console.log('asdasd');
         try {
             // Consultar el usuario maestro
             const userMaster = await UserMasterModel.findOne({ attributes: ['umId', 'umIdAWS'], where: { umId: deCode(umId) } })
