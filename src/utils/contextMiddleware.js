@@ -1,20 +1,27 @@
-const { ApolloError } = require('apollo-server')
-const { JsonWebTokenError } = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
+const { PubSub } = require('apollo-server')
 
-module.exports = (context) => {
-    console.log(context)
-    const token = (context.req.headers.authorization)
-    if (token) {
+const pubsub = new PubSub()
+
+module.exports = context => {
+    let token
+    if (context.req && context.req.headers.authorization) {
+        token = context.req.headers.authorization
+    } else if (context.connection && context.connection.context.Authorization) {
+        token = context.connection.context.Authorization
+    }
+    if (token !== 'null'){
         try {
-            const User = JsonWebTokenError.verify(
-                token.replace('', ''),
-                process.env.AUTHO_USER_KEY
-            );
+            //validate user in client.
+            const User = jwt.verify(token, process.env.AUTHO_USER_KEY);
             return { User }
-        } catch (error) {
-            console.log(error)
+        } catch (err){
+            // eslint-disable-next-line no-console
+            console.log(err)
+            // eslint-disable-next-line no-console
             console.log('Hola esto es un error del contexto')
-            throw new ApolloError('No ha sido posible procesar su solicitud.', 500)
         }
     }
+    context.pubsub = pubsub
+    return context
 }

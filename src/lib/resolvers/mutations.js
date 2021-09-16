@@ -73,7 +73,7 @@ module.exports = {
     ...createFeatureTypeMutations,
     ...UpdateCategoriesMutations,
     ...RegisterUserMaster,
-    ...MessagesMutations,
+    ...MessagesMutations.Mutation,
     ...PostMessagesMutation,
     ...reactionMutations,
     ...followMutations,

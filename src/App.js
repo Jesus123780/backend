@@ -2,28 +2,33 @@
 
 /**
  * @license
- * Configuración del servidor para el proyecto Leypal solutions
+ * Configuración del servidor para el proyecto Ifood
  */
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config()
-// const morgan = require('morgan')
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const jwt = require('jsonwebtoken')
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
 
-const { ApolloServer } = require('apollo-server-express')
+const jwt = require('jsonwebtoken')
+const express = require('express')
+const morgan = require('morgan')
+const BodyParser = require('body-parser')
+const cors = require('cors')
+const { ApolloServer } = require('apollo-server')
+// Initializations
+const app = express()
+// Config of Graphql
 const resolvers = require('./lib/resolvers')
 const { fileLoader, mergeTypes } = require('merge-graphql-schemas')
-const { ApolloError } = require('apollo-server')
-// const { graphqlUploadExpress } = require('graphql-upload')
+const contextMiddleware = require('./utils/contextMiddleware')
+// Puerto Graphql
+app.set('graphport', process.env.GRAPHPORT || 4000)
 
 // Middleware
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(morgan('dev'))
+app.use(BodyParser.json())
+app.use(BodyParser.urlencoded({ extended: true }))
 app.use(cors())
-// app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
 // Configurar cabeceras y cors
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -33,41 +38,36 @@ app.use((req, res, next) => {
     next()
 })
 
-app.set('graphport', process.env.GRAPHPORT || 4000)
-
 // Definiendo el esquema de graphql
 const typeDefs = mergeTypes(fileLoader(`${ __dirname }/**/*.graphql`), { all: true })
 
+app.use(express.json({ limit: '50mb' }))
 // Configurando el server de apollo
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req, res }) => {
-        const token = (req.headers.authorization)
-        if (token) {
-            try {
-                const User = jwt.verify(
-                    token.replace('', ''),
-                    process.env.AUTHO_USER_KEY
-                );
-                return { User, res }
-            } catch (error) {
-                console.log(error)
-                console.log('Hola esto es un error del contexto')
-                throw new ApolloError('No ha sido posible procesar su solicitud.', 500)
-            }
-        }
-    },
-    uploads: false
-})
-server.start();
+    context: contextMiddleware
+});
 
-app.use(express.json({ limit: '50mb' }))
-server.applyMiddleware({
-    path: '/',
-    app,
-    bodyParserConfig: false
-})
+// context: async ({ req, connection, res }) => {
+//     if (connection) {
+//         // check connection for metadata
+//         return connection.context;
+//     } else {
+//         // check from req
+//         const token = (req.headers.authorization)
+//         if (token !== 'null'){
+//             try {
+//                 //validate user in client.
+//                 const User = await jwt.verify(token, process.env.AUTHO_USER_KEY);
+//                 return { User, res }
+//             } catch (err){
+//                 console.log(err)
+//                 console.log('Hola esto es un error del contexto')
+//             }
+//         }
 
+//     }
+// },
 // Sirviendo puertos para peticiones
-new Promise(resolve => app.listen({ port: app.get('graphport') }, resolve)).then(() => console.log('Ha iniciado graphql'))
+server.listen({ port: app.get('graphport') }).then(() => console.log(`Ha iniciado graphql en el puerto ${ app.get('graphport') }`))

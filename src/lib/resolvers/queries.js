@@ -70,7 +70,7 @@ module.exports = {
     // Usuario master
     ...userMasterQueries,
     // Mensajes
-    ...MessagesQueries,
+    ...MessagesQueries.Query,
     // MensajesRamdom
     ...messagesQuery,
     ...followQuery

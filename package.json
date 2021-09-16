@@ -34,7 +34,8 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.1",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "socket.io": "^4.2.0"
   },
   "resolutions": {
     "fs-capacitor": "^6.2.0",

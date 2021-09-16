@@ -1,5 +1,5 @@
 const { SubscriptionSubscription } = require('./Messages');
 
 module.exports = {
-    ...SubscriptionSubscription
+    ...SubscriptionSubscription.Subscription
 }

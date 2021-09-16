@@ -4,14 +4,19 @@ const { dateTimeScalar } = require('./resolvers/CustomScalar')
 const queries = require('./resolvers/queries')
 const mutations = require('./resolvers/mutations')
 const types = require('./resolvers/types')
-const SubscriptionTypes = require('./resolvers/Subcription')
+const { SubscriptionSubscription } = require('./resolvers/Messages')
 // const { GraphQLUpload } = require('graphql-upload')
 
 module.exports = {
-    Query: queries,
-    Mutation: mutations,
+    Query: {
+        ...queries
+    },
+    Mutation: {
+        ...mutations,
+    },
+    Subscription: {
+        ...SubscriptionSubscription.Subscription,
+    },
     DateTime: dateTimeScalar,
-    // Upload: GraphQLUpload,
     ...types,
-    Subscription: SubscriptionTypes,
 }
